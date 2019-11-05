@@ -37,7 +37,7 @@
             android:layout_height="239dp"
             android:gravity="center"
             android:hint="@string/TextView_resultado"
-            android:textSize="36sp" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/buffer"
@@ -68,12 +68,14 @@
                     android:id="@+id/del"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:onClick="DEL"
                     android:text="@string/borrar" />
 
                 <Button
                     android:id="@+id/division"
                     android:layout_width="102dp"
                     android:layout_height="86dp"
+                    android:onClick="division"
                     android:text="@string/division" />
             </TableRow>
 
@@ -106,6 +108,7 @@
                     android:id="@+id/multiplicacion"
                     android:layout_width="103dp"
                     android:layout_height="84dp"
+                    android:onClick="multiplicacion"
                     android:text="@string/multiplicacion" />
             </TableRow>
 
@@ -171,6 +174,7 @@
                     android:id="@+id/resta"
                     android:layout_width="103dp"
                     android:layout_height="71dp"
+                    android:onClick="resta"
                     android:text="@string/resta" />
             </TableRow>
 
@@ -182,6 +186,7 @@
                     android:id="@+id/button11"
                     android:layout_width="wrap_content"
                     android:layout_height="91dp"
+                    android:onClick="negapositivo"
                     android:text="@string/valor" />
 
                 <Button
