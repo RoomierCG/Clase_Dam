@@ -79,8 +79,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void DEL(View view){
-        buffer /= 10;
-        //Falta por terminar
+        buffer = buffer - (buffer%10);
+        buffer/=10;
         actualizarTexto(view);
     }
 
@@ -159,6 +159,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /********************** OPERACIONES CIENTIFICAS ************************/
+
+
+
     /********************** TextView ************************/
 
     public void actualizarTexto(View view){
@@ -168,6 +172,9 @@ public class MainActivity extends AppCompatActivity {
         textView.setText(Double.toString(buffer));
 
         //Hacemos que si le hemos dado al boton de suma o resta el textview buffer no tendra simbolo
+        if(buffer2 == 0){
+            textView1.setText("");
+        }
         if (operador != 1 && operador != 2 && operador != 3 && operador != 4){
             textView1.setText(Double.toString(buffer2));
         }else{
