@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.nio.Buffer;
+
 public class MainActivity extends AppCompatActivity {
 
     public static double buffer = 0;
@@ -134,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 2:
                 resultado = buffer - buffer2;
+                buffer3 = buffer;
                 buffer = resultado;
                 actualizarTexto(view);
                 buffer = 0;
@@ -142,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 3:
                 resultado = buffer * buffer2;
+                buffer3 = buffer;
                 buffer = resultado;
                 actualizarTexto(view);
                 buffer = 0;
@@ -150,6 +154,16 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case 4:
                 resultado = buffer / buffer2;
+                buffer3 = buffer;
+                buffer = resultado;
+                actualizarTexto(view);
+                buffer = 0;
+                operador = 0;
+                buffer3 = 0;
+                break;
+            case 5:
+                resultado = Math.pow(buffer2,buffer);
+                buffer3 = buffer;
                 buffer = resultado;
                 actualizarTexto(view);
                 buffer = 0;
@@ -161,7 +175,24 @@ public class MainActivity extends AppCompatActivity {
 
     /********************** OPERACIONES CIENTIFICAS ************************/
 
+    public void valorAlCuadrado(View view){
+        buffer = Math.pow(buffer,2);
+        buffer2 = buffer;
+        actualizarTexto(view);
+    }
 
+    public void bufferelevados(View view){
+        operador = 5;
+        buffer2 = buffer;
+        buffer = 0;
+        actualizarTexto(view);
+    }
+
+    public void sin(View view){
+        buffer = Math.sin(buffer);
+        buffer2 = buffer;
+        actualizarTexto(view);
+    }
 
     /********************** TextView ************************/
 
@@ -175,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
         if(buffer2 == 0){
             textView1.setText("");
         }
-        if (operador != 1 && operador != 2 && operador != 3 && operador != 4){
+        if (operador != 1 && operador != 2 && operador != 3 && operador != 4 && operador != 5){
             textView1.setText(Double.toString(buffer2));
         }else{
             switch (operador){
@@ -191,6 +222,10 @@ public class MainActivity extends AppCompatActivity {
                 case 4:
                     textView1.setText(Double.toString(buffer2) + " / " + Double.toString(buffer));
                     break;
+                case 5:
+                    textView1.setText(Double.toString(buffer2) + " ^ " + Double.toString(buffer));
+                    break;
+
             }
         }
         if  (operador != 1 && operador != 2 && operador != 3 && operador != 4 || buffer3 != 0){
@@ -206,6 +241,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case 4:
                     textView1.setText(Double.toString(buffer2) + " / " + Double.toString(buffer3) + " = " + Double.toString(buffer));
+                    break;
+                case 5:
+                    textView1.setText(Double.toString(buffer2) + " ^ " + Double.toString(buffer3) + " = " + Double.toString(buffer));
                     break;
             }
         }

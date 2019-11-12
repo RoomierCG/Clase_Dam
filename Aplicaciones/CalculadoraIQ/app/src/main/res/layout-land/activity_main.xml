@@ -45,10 +45,11 @@
                 android:layout_height="wrap_content">
 
                 <Button
-                    android:id="@+id/button12"
+                    android:id="@+id/cuadrado"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="valorAlCuadrado"
                     android:text="X²" />
 
                 <Button
@@ -56,6 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="bufferelevados"
                     android:text="X^y" />
 
                 <Button
@@ -63,6 +65,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="sin"
                     android:text="SIN" />
 
                 <Button
