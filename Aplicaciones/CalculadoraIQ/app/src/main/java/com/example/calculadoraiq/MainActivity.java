@@ -170,6 +170,27 @@ public class MainActivity extends AppCompatActivity {
                 operador = 0;
                 buffer3 = 0;
                 break;
+            case 6:
+                //estas variable se usara para añadir tantos ceros como marque el usuario
+                int cont = 1;
+                resultado = 1;
+
+                while ( cont <= buffer){
+                    resultado *= 10;
+                    cont++;
+                }
+                buffer = resultado * buffer2;
+                actualizarTexto(view);
+                buffer = 0;
+                operador = 0;
+                break;
+            case 7:
+                buffer = buffer2 % buffer;
+                actualizarTexto(view);
+                buffer = 0;
+                operador = 0;
+                break;
+
         }
     }
 
@@ -191,6 +212,49 @@ public class MainActivity extends AppCompatActivity {
     public void sin(View view){
         buffer = Math.sin(buffer);
         buffer2 = buffer;
+        actualizarTexto(view);
+    }
+
+    public void cos(View view){
+        buffer = Math.cos(buffer);
+        buffer2 = buffer;
+        actualizarTexto(view);
+    }
+
+    public void tan(View view){
+        buffer = Math.tan(buffer);
+        buffer2 = buffer;
+        actualizarTexto(view);
+    }
+
+    public void valorAlCubo(View view){
+        buffer = Math.pow(buffer,3);
+        buffer2 = buffer;
+        actualizarTexto(view);
+    }
+
+    // numero raiz de numero
+    public void varraizvar(View view){
+    }
+
+    public void log(View view){
+        buffer = Math.log(buffer);
+        buffer2 = buffer;
+        actualizarTexto(view);
+    }
+
+    public void exp(View view){
+        operador = 6;
+        buffer2 = buffer;
+        buffer = 0;
+        actualizarTexto(view);
+
+    }
+
+    public void mod(View view){
+        operador = 7;
+        buffer2 = buffer;
+        buffer = 0;
         actualizarTexto(view);
     }
 

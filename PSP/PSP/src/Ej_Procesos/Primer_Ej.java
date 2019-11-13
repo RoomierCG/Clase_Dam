@@ -21,4 +21,19 @@ public class Primer_Ej implements Runnable{
 		System.out.println("Adios, soy" + id);
 		
 	}
+	public static void main(String[] args) {
+		int buffer = 3;
+		int buffer2 = 8;
+		int resultado = 1;
+		int cont = 1;
+		
+		while( cont <= buffer) {
+			resultado *= 10;
+			cont++;
+		}
+		
+		buffer = buffer2 * resultado;
+		
+		System.out.println(buffer);
+	}
 }
