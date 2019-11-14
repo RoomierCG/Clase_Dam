@@ -20,11 +20,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
     public void C(View view){
         buffer = "0";
         TextView textView = (TextView) findViewById(R.id.textresultado);
         textView.setText(buffer);
     }
+
     public void resultado(View view){
         switch (opcion){
             case 1:
