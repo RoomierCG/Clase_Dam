@@ -1,0 +1,121 @@
+/*
+    Quitamos todo los margenes al cargar la pagina en cualquier tipo de elemento
+    si es necesario se le asiganara mediante id's o clases
+*/
+
+* {
+  margin: 0px;
+  padding: 0px;
+  /*Fuente de google fonts*/
+  font-family: "Ubuntu", sans-serif;
+}
+
+.no-seleccionable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/*
+    Esta clase esta para que el usario no pueda seleccion el elemento que contenga esta clase
+*/
+
+/*
+                                        HEADER
+    estilo de todos los elementos que contendra la cabecera de la pagina web
+*/
+
+header {
+  width: 100%;
+  height: 400px;
+  background-image: url("../imagenes/bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/*
+  Identificadores
+*/
+#header_1 {
+  top: 30%;
+}
+#header_2 {
+  top: 58.2%;
+}
+
+#Titulo_pagina {
+  text-align: center;
+  font-size: 80px;
+  color: white;
+  /*Shadows*/
+  text-shadow: 4px 3px 5px rgba(0, 0, 0, 1);
+  /*Evitamos que el usuario no pueda hacer clic*/
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#primer_li {
+  width: 50%;
+}
+/*
+  Clases
+*/
+.div_headers {
+  width: 100%;
+  position: relative;
+}
+.li_headers {
+  float: left;
+  width: 10%;
+  /*Posicionamiento*/
+  list-style-type: none;
+  /*estilos*/
+}
+.li_txt_heards {
+  text-align: center;
+  height: 50px;
+  padding-top: 25px;
+  font-size: 25px;
+  /*Posiciones o tamañanos*/
+  background-color: teal;
+  color: white;
+  border-right: 2px solid tomato;
+  /*estilos*/
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /*Evitamos que el usuario no pueda hacer clic*/
+}
+.li_a_headers:link {
+  text-decoration: none;
+}
+.li_txt_heards:hover {
+  text-decoration: none;
+}
+.li_a_headers:visited {
+  text-decoration: none;
+}
+.li_a_headers:active {
+  text-decoration: none;
+}
+/*hacemos que los enlaces en todos sus estados no tenga un subrayado*/
+
+.li_txt_heards:hover {
+  background-color: tomato;
+  color: black;
+  font-weight: bold;
+  font-size: 27px;
+  /*show box*/
+
+  transition: 0.5s;
+}
+.li_txt_heards:active {
+  transition: 0s;
+  -webkit-box-shadow: inset 0px 0px 10px 3px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: inset 0px 0px 10px 3px rgba(0, 0, 0, 0.75);
+  box-shadow: inset 0px 0px 10px 3px rgba(0, 0, 0, 0.75);
+}

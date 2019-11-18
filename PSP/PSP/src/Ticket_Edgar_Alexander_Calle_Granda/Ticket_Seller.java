@@ -7,21 +7,32 @@ public class Ticket_Seller {
 	//creamos los objetos
 	static Scanner scanner = new Scanner(System.in);
 	static Ticket_Avion avion;
+	static Ticket_Bus Bus;
+	static Ticket_Coche Coche;
 	
 	String transport;
 	
 	public static void main(String[] args) {
 		
 		//Empieza el programa
+		
+		//pedimos valor al user
+		
 		switch (ask_transport()) {
 		case "a":
 			int quantity = ask_ticket();
-			avion = new Ticket_Avion(quantity);
+			avion = new Ticket_Avion(quantity,"a");
 			avion.quantity_transport();
 			break;
 		case "b":
+			quantity = ask_ticket();
+			Bus = new Ticket_Bus(quantity,"b");
+			Bus.quantity_transport();
 			break;
 		case "c":
+			quantity = ask_ticket();
+			Coche = new Ticket_Coche(quantity,"c");
+			Coche.quantity_transport();
 			break;
 		}
 	}
@@ -42,7 +53,7 @@ public class Ticket_Seller {
 		//controlamos la salida
 		if (!transport.equals("a") && !transport.equals("b") && !transport.equals("c")) {
 			System.out.println("Letra no valida intentalo de nuevo");
-			ask_transport();
+			main(null);
 		}
 		
 		return transport;
