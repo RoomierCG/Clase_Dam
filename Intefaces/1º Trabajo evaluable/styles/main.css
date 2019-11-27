@@ -119,3 +119,27 @@ header {
   -moz-box-shadow: inset 0px 0px 10px 3px rgba(0, 0, 0, 0.75);
   box-shadow: inset 0px 0px 10px 3px rgba(0, 0, 0, 0.75);
 }
+
+/*
+                                        Body
+*/
+
+.article_section1 {
+  float: left;
+  width: 20%;
+  height: 400px;
+  /*Posiciones y tamaños*/
+}
+.sectionTitulo {
+  display: none;
+}
+
+/*Sections enumerados*/
+
+#sectinoBody1 {
+  background-image: url("../imagenes/steamSection.jpg");
+  background-repeat: no-repeat;
+}
+
+#sectinoBody2 {
+}
