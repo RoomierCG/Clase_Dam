@@ -8,6 +8,7 @@
   padding: 0px;
   /*Fuente de google fonts*/
   font-family: "Ubuntu", sans-serif;
+  font-size: 22px;
 }
 
 .no-seleccionable {
@@ -123,23 +124,18 @@ header {
 /*
                                         Body
 */
-
-.article_section1 {
-  float: left;
-  width: 20%;
-  height: 400px;
-  /*Posiciones y tamaños*/
-}
-.sectionTitulo {
-  display: none;
+.descripcion_body {
+  margin-top: 5%;
+  margin-left: 10%;
+  margin-right: 10%;
 }
 
-/*Sections enumerados*/
-
-#sectinoBody1 {
-  background-image: url("../imagenes/steamSection.jpg");
-  background-repeat: no-repeat;
+#titulo_section {
+  text-align: center;
 }
 
-#sectinoBody2 {
+#imagen_section2 {
+  width: 1317.1px;
+  height: 499px;
+  margin-bottom: 2%;
 }
