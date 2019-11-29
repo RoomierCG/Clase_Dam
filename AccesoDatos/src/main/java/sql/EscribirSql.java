@@ -13,20 +13,21 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class EscribirSql {
 
     private static PreparedStatement preparedStatement;
     private static Connection connection;
     //Son variables locales para usar una query y conectar con la base de datos
+    private static ArrayList<Alumno> arrayAlumnos = new ArrayList<Alumno>();
 
     public static void main(String[] args) {
 
         File file = new File("C:\\Users\\ALUMNO.AULA4-PC5\\Desktop\\haba\\ficheros\\alumnos.xml");
         //leemos el fichero, para usar con los DOM.
 
-        ArrayList<Alumno> arrayAlumnos = new ArrayList<Alumno>();
+
 
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -63,6 +64,8 @@ public class EscribirSql {
 
             }
             //para leerlo usamos un bucle y accedemos a cada elemento 1 a 1 por cada nodo que encuentra.
+            insertaBD();
+
 
         } catch(Exception e) {
             e.printStackTrace();
@@ -78,33 +81,32 @@ public class EscribirSql {
         try {
             //cargas en memoria el driver
             Class.forName("com.mysql.cj.jdbc.Driver");
-
-            //Crear el objero de conxion (la ulr es la variable, el usuario y la contrase�a)
-            Connection connection = DriverManager.getConnection(urlBD, "root","1234");
-
-            //creamos un objeto statement
-            Statement statement = connection.createStatement();
-
-            //creamosla query
-            String query = "INSERT INTO alumnos (`id`, `nombre`, `apellidos`, `grupo`, `fecha_nacimiento`) VALUES (?, ?, ?, ?, ?)";
+            //Crear el objeto de conexión (la ulr es la variable, el usuario y la contraseña)
+            connection = DriverManager.getConnection(urlBD, "root","1234");
+            //creamos la query
+            String query = "INSERT INTO alumnos (`id`, `nombre`, `apellido`, `grupo`, `fecha_nacimiento`) VALUES (?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(query);
-            //crear el objeto para almacenar el resulatado
-            ResultSet resultSet = statement.executeQuery(query);
+            //crear el objeto para almacenar el resultado
 
-            //Iterar sobre el resultado de la consulta
-            while(resultSet.next()) {
-                System.out.println("ALUMNO:"
-                        +"ID: "+ resultSet.getInt(1)
-                        +" Nombre: " + resultSet.getString(2)
-                        +" Apellidos: " + resultSet.getString(3)
-                        +" Grupo: " + resultSet.getString(4)
-                        +" Fecha_Nacimiento: " + resultSet.getString(5)
-                );
+            //Iterar sobre el resultado de la consulta usando un foreach (Aclararse el uso de este tipo de bucle)
+            for (Alumno alum : arrayAlumnos) {
+
+                //Convertimos la fecha que tenga almacenada el array a tipo date, que usaremos para meter ese resultado en la base de datos
+                Date fechaAlumnoFinal = convertirFecha(alum.getFecha_nacimiento());
+                System.out.println(alum.getId()+ " - " + alum.getNombre()+ " - " +alum.getApellido()+ " - " + alum.getGrupo()+ " - " + alum.getFecha_nacimiento());
+                //Preparamos los datos para ingresarlos dentro de la BD
+                preparedStatement.setInt(1, alum.getId());
+                preparedStatement.setString(2, alum.getNombre());
+                preparedStatement.setString(3, alum.getApellido());
+                preparedStatement.setString(4, alum.getGrupo());
+                preparedStatement.setDate(5, fechaAlumnoFinal);
+
+                //Ejecutamos la query añadiendo lo anterior a la BD
+                preparedStatement.executeUpdate();
             }
 
             //Cerrar los objetos utilizados
-            resultSet.close();
-            statement.close();
+            preparedStatement.close();
             connection.close();
 
         } catch (Exception e) {
@@ -122,7 +124,6 @@ public class EscribirSql {
             e.printStackTrace();
         }
         return null;
-
     }
 
 }
