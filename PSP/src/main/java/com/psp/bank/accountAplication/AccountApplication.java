@@ -35,6 +35,12 @@ public class AccountApplication {
         threads.add(firtsContribution);
         threads.add(secondContribution);
         threads.add(thirdContribution);
+
+        for(int i = 0; i < numberOfPartners; i++) {
+            threads.parallelStream()
+                    .forEach(t -> t.run());
+        }
+        //mejorar esto, no tengo ni puta idea de que estoy haciendo 
     }
 
     private static int partnerNumControl(int number){
