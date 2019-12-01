@@ -2,23 +2,23 @@ package com.psp.bank.objects;
 
 public class Partner {
 
-    int parnetNumber;
-    int parnetCash = 300;
+    int carnetNumber;
+    int carnetCash;
 
-    public int getParnetNumber() { return parnetNumber; }
-    public void setParnetNumber(int parnetNumber) {
-        this.parnetNumber = parnetNumber;
+    public int getCarnetNumber() { return carnetNumber; }
+    public void setCarnetNumber(int carnetNumber) {
+        this.carnetNumber = carnetNumber;
     }
 
-    public int getParnetCash() {
-        return parnetCash;
+    public int getCarnetCash() {
+        return carnetCash;
     }
-    public void setParnetCash(int parnetCash) {
-        this.parnetCash = parnetCash;
+    public void setCarnetCash(int carnetCash) {
+        this.carnetCash = carnetCash;
     }
 
-    public Partner(int parnetNumber, int parnetCash) {
-        this.parnetNumber = parnetNumber;
-        this.parnetCash = parnetCash;
+    public Partner(int carnetNumber) {
+        this.carnetNumber = carnetNumber;
+        this.carnetCash = 300;
     }
 }
