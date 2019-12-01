@@ -2,7 +2,7 @@ package com.psp.bank.accountAplication;
 
 public class Contribution {
 
-    private int contributionQuantity = 0;
+    private int contributionQuantity = 10000;
 
     public int firtsContribution(){
         return contributionQuantity += 100;

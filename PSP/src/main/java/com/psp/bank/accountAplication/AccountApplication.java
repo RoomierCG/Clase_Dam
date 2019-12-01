@@ -1,35 +1,52 @@
 package com.psp.bank.accountAplication;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import com.psp.bank.objects.Partner;
 
 public class AccountApplication {
 
     private static ArrayList <Partner> partnerArrayList = new ArrayList <Partner>();
+    private final static Contribution contribution = new Contribution();
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
+        int numberOfPartners = partnerNumControl(Integer.parseInt(args[0]));
 
-        String numberOfPartners = args[0];
-        minParnet(Integer.parseInt(numberOfPartners));
-
-        for (int i = 0; i < Integer.parseInt(numberOfPartners); i++) {
-            Partner partner = new Partner(i);
-            partnerArrayList.add(partner);
+            if (numberOfPartners != 1) {
+            for (int i = 0; i < numberOfPartners; i++) {
+                Partner partner = new Partner(i);
+                partnerArrayList.add(partner);
+            }
         }
-
+        /*
         for(Partner partner : partnerArrayList){
             System.out.println("numero : "+partner.getCarnetNumber()
-            +" dinero "+ partner.getCarnetCash());
+                    +" dinero "+ partner.getCarnetCash());
+        }
+        */
+
+        Runnable firtsContribution = () -> { System.out.println("Contributed with "+contribution.firtsContribution()); };
+        Runnable secondContribution = () -> { System.out.println("Contributed with "+contribution.secondContribution()); };
+        Runnable thirdContribution = () -> { System.out.println("return "+contribution.thirdContribution()); };
+
+        Set<Runnable> threads = new HashSet();
+        threads.add(firtsContribution);
+        threads.add(secondContribution);
+        threads.add(thirdContribution);
+    }
+
+    private static int partnerNumControl(int number){
+        if (number >= 10 &&  number <= 20) {
+            System.out.println("funciona");
+            return number;
+        }else{
+            System.out.println("Number of partners invalid");
+            return 1;
         }
     }
-
-    private static int minParnet(int numberOfPartners){
-
-        return numberOfPartners;
-    }
-
 }
-
 
 /*
         Para compilar la esta clase nos dara ciertos problemas ya que llama a otros paquetes de nuestro proyecto
