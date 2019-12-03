@@ -13,4 +13,7 @@ public class Contribution {
     public int thirdContribution(){
         return contributionQuantity -= 300;
     }
+    public int fourContribution(){
+        return contributionQuantity;
+    }
 }

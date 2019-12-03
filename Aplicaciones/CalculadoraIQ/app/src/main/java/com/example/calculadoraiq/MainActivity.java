@@ -289,7 +289,6 @@ public class MainActivity extends AppCompatActivity {
                 case 5:
                     textView1.setText(Double.toString(buffer2) + " ^ " + Double.toString(buffer));
                     break;
-
             }
         }
         if  (operador != 1 && operador != 2 && operador != 3 && operador != 4 || buffer3 != 0){

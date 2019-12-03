@@ -10,13 +10,15 @@ public class AccountApplication {
 
     private static ArrayList <Partner> partnerArrayList = new ArrayList <Partner>();
     private final static Contribution contribution = new Contribution();
+    private static Partner partner;
 
+    @SuppressWarnings("unchecked")
     public static void main(final String[] args) {
         int numberOfPartners = partnerNumControl(Integer.parseInt(args[0]));
 
             if (numberOfPartners != 1) {
             for (int i = 0; i < numberOfPartners; i++) {
-                Partner partner = new Partner(i);
+                partner = new Partner(i);
                 partnerArrayList.add(partner);
             }
         }
@@ -26,21 +28,15 @@ public class AccountApplication {
                     +" dinero "+ partner.getCarnetCash());
         }
         */
+        for (Partner partner: partnerArrayList) {
+            Runnable sprint1 = () -> {System.out.println("Partner "+partner.getCarnetNumber() + " contributed with "+ contribution.firtsContribution() +", now the banckAccount is "+contribution.fourContribution());};
 
-        Runnable firtsContribution = () -> { System.out.println("Contributed with "+contribution.firtsContribution()); };
-        Runnable secondContribution = () -> { System.out.println("Contributed with "+contribution.secondContribution()); };
-        Runnable thirdContribution = () -> { System.out.println("return "+contribution.thirdContribution()); };
+            Set<Runnable> threads = new HashSet();
+            threads.add(sprint1);
 
-        Set<Runnable> threads = new HashSet();
-        threads.add(firtsContribution);
-        threads.add(secondContribution);
-        threads.add(thirdContribution);
+            threads.parallelStream().forEach(t -> t.run());
 
-        for(int i = 0; i < numberOfPartners; i++) {
-            threads.parallelStream()
-                    .forEach(t -> t.run());
         }
-        //mejorar esto, no tengo ni puta idea de que estoy haciendo 
     }
 
     private static int partnerNumControl(int number){
