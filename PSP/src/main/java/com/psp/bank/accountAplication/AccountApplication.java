@@ -12,7 +12,6 @@ public class AccountApplication {
     private final static Contribution contribution = new Contribution();
     private static Partner partner;
 
-    @SuppressWarnings("unchecked")
     public static void main(final String[] args) {
         int numberOfPartners = partnerNumControl(Integer.parseInt(args[0]));
 
@@ -28,6 +27,11 @@ public class AccountApplication {
                     +" dinero "+ partner.getCarnetCash());
         }
         */
+        synchronizeSprints();
+    }
+
+    @SuppressWarnings("unchecked")
+    private static synchronized void synchronizeSprints(){
         for (Partner partner: partnerArrayList) {
             Runnable sprint1 = () -> {System.out.println("Partner "+partner.getCarnetNumber() + " contributed with "+ contribution.firtsContribution() +", now the banckAccount is "+contribution.fourContribution());};
             Runnable sprint2 = () -> {System.out.println("Partner "+partner.getCarnetNumber() + " contributed with "+ contribution.secondContribution()+", now the banckAccount is "+contribution.fourContribution());};
