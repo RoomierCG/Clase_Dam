@@ -35,7 +35,7 @@ public class AccountApplication {
         for (Partner partner: partnerArrayList) {
             Runnable sprint1 = () -> {System.out.println("Partner "+partner.getCarnetNumber() + " contributed with "+ contribution.firtsContribution() +", now the banckAccount is "+contribution.fourContribution());};
             Runnable sprint2 = () -> {System.out.println("Partner "+partner.getCarnetNumber() + " contributed with "+ contribution.secondContribution()+", now the banckAccount is "+contribution.fourContribution());};
-            Runnable sprint3 = () -> {System.out.println("Partner "+partner.getCarnetNumber() + " contributed with "+ contribution.thirdContribution()+", now the banckAccount is "+contribution.fourContribution());};
+            Runnable sprint3 = () -> {System.out.println("Partner "+partner.getCarnetNumber() + " bank will be transfer "+ contribution.thirdContribution()+", now the banckAccount is "+contribution.fourContribution());};
 
 
             Set<Runnable> threads = new HashSet();
