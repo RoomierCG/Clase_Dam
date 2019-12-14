@@ -1,12 +1,14 @@
 package sqlmongo;
 
+import java.util.Date;
+
 public class Alumno {
 
     private int id;
     private String nombre;
     private String apellido;
     private String grupo;
-    private String fecha_nacimiento;
+    private Date fecha_nacimiento;
 
     public int getId() {
         return id;
@@ -40,15 +42,15 @@ public class Alumno {
         this.grupo = grupo;
     }
 
-    public String getFecha_nacimiento() {
+    public Date getFecha_nacimiento() {
         return fecha_nacimiento;
     }
 
-    public void setFecha_nacimiento(String fecha_nacimiento) {
+    public void setFecha_nacimiento(Date fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
-    public Alumno(int id, String nombre, String apellido, String grupo, String fecha_nacimiento) {
+    public Alumno(int id, String nombre, String apellido, String grupo, Date fecha_nacimiento) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;

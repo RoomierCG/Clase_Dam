@@ -1,13 +1,12 @@
-package sqlmongo.writeSQLandJSON;
+package sqlmongo.writeFiles;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import sqlmongo.Alumno;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static sqlmongo.writeSQLandJSON.EscrituraXML.*;
+import static sqlmongo.writeFiles.EscrituraXML.*;
 
 public class EscrituraJson {
 
