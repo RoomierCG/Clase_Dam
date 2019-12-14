@@ -64,7 +64,8 @@ public class EscribirSql {
 
             }
             //para leerlo usamos un bucle y accedemos a cada elemento 1 a 1 por cada nodo que encuentra.
-            insertaBD();
+            //insertaBD();
+
 
 
         } catch(Exception e) {
@@ -125,5 +126,7 @@ public class EscribirSql {
         }
         return null;
     }
+
+
 
 }
