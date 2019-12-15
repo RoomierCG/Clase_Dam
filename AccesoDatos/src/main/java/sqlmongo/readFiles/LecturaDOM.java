@@ -18,9 +18,12 @@ import java.util.List;
 
 public class LecturaDOM {
 
-    static List<Alumno>alumnos = new ArrayList<>();
-
     public static void main(String[] args) {
+        creacionLits();
+    }
+
+    public static List creacionLits(){
+        List<Alumno>alumnos = new ArrayList<>();
 
         //creacion de objetos necesario para poder leer un fichero xml
         Document document = null;
@@ -54,9 +57,10 @@ public class LecturaDOM {
                 alumnos.add(alumno);
             }
         }
+        return alumnos;
     }
 
-    private static Date convertirFecha(String fecha){
+    public static Date convertirFecha(String fecha){
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             java.util.Date parsedDate = dateFormat.parse(fecha);
@@ -68,3 +72,4 @@ public class LecturaDOM {
         return null;
     }
 }
+

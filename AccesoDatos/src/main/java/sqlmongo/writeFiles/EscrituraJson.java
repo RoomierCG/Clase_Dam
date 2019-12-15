@@ -18,11 +18,11 @@ public class EscrituraJson {
         JSONObject jsonObject = new JSONObject();
 
         jsonObject.put("alumnos",crearAlumno());
-
         //creamos el fichero
+
         try  {
             FileWriter file = new FileWriter("D:\\Repositorios\\ClaseDam\\AccesoDatos\\src\\main\\resources\\ficherosGenerados\\alumnos.json");
-            file.write(jsonObject.toJSONString());
+            file.write(crearAlumno().toJSONString());
             file.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -30,21 +30,22 @@ public class EscrituraJson {
     }
 
     private static JSONArray crearAlumno(){
-
-        JSONArray jsonArray= new JSONArray();
+        JSONArray alumnoArr = new JSONArray();
 
         for (int i = 0; i < 100; i++) {
             JSONObject alumno = new JSONObject();
-            alumno.put("id",i);
-            alumno.put("nombre",datosAlumno(listAlumnos));
-            alumno.put("apellidos",datosAlumno(listApellidos));
-            alumno.put("grupo",grupoAleatorio());
-            alumno.put("fechaNacimiento",fechaAleatoria());
-
+            System.out.println("flag");
+            JSONObject itemAlumno = new JSONObject();
+            itemAlumno.put("id",i);
+            itemAlumno.put("nombre",datosAlumno(listAlumnos));
+            itemAlumno.put("apellidos",datosAlumno(listApellidos));
+            itemAlumno.put("grupo",grupoAleatorio());
+            itemAlumno.put("fechaNacimiento",fechaAleatoria());
+            alumno.put("alumno",itemAlumno);
             //añadimos el alumno al Array
-            jsonArray.add(alumno);
+            alumnoArr.add(alumno);
         }
 
-        return  jsonArray;
+        return  alumnoArr;
     }
 }
