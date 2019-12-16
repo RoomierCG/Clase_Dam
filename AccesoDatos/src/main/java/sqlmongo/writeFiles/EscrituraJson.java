@@ -9,9 +9,6 @@ import java.io.IOException;
 import static sqlmongo.writeFiles.EscrituraXML.*;
 
 public class EscrituraJson {
-
-
-
     public static void main(String[] args) {
         cargarListas();
 
