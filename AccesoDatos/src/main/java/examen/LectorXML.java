@@ -1,102 +1,181 @@
 package examen;
 
+import examen.objetos.*;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import sqlmongo.Alumno;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
 
 public class LectorXML {
 
-    //creacion de objetos necesario para poder leer un fichero xml
+    //creacion de objetos necesario para poder leer un fichero xml Globales
     static Document document = null;
     static DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
     static DocumentBuilder builder;
 
+    //Variable donde se almacenara la raiz del archivo XML
+    static Element root;
 
-    public static void main(String[] args) {
+    //Lista de todos los hijos tipo Nodo y List
+    static NodeList childsRoot;
+    static List<String> itemChild;
 
-        //Al iniciar que nos lea el fichero asignado
-        leerFichero();
-        //Comprobacion de status del contenido de los nodos y su contenido
-        cogerCliente();
-        cogerPedido();
-        //Lanzamos la creacion de Listas
-        crearLista();
-    }
+    //Lista de archivos analizados
+    static List<Cliente> arrCliente = new ArrayList<>();
+    static List<Producto> arrProducto = new ArrayList<>();
+    static List<Pedido> arrPedido = new ArrayList<>();
 
-    public static void leerFichero() {
+    private static void leerFichero() {
         //cargamos el fichero en el objeto document el cual sera el que leeremos
         try {
             builder = factory.newDocumentBuilder();
-            document = builder.parse(new File("C:\\Users\\ALUMNO.AULA4-PC5\\Desktop\\GIT\\Clase_Dam\\AccesoDatos\\src\\main\\resources\\ficherosGenerados\\bbdd.xml"));
+            document = builder.parse(new File("D:\\Repositorios\\ClaseDam\\AccesoDatos\\src\\main\\resources\\ficherosGenerados\\bbdd.xml"));
+            //cogemos el elemento raiz del documento
+            root = document.getDocumentElement();
         } catch (Exception e) {
             System.out.println("Error al leer el fichero");
             e.printStackTrace();
         }
     }
 
-    //Recogemos el cliente, que este figurara en los items de pedidos
-    public static void cogerCliente(){
-        //Vemos cuantas etiquetas tiene la raiz
-        NodeList nList = document.getChildNodes();
-        for (int i = 0; i < nList.getLength(); i++) {
-            //creamos un objeto que contendra los tipos de nodos hijos de la raiz (En este caso se espean 2)
-            Node childNode = nList.item(i);
-
-            //TODO el hijo deberia de cogerse y lanzarse en una nueva lista
-            //miramos si la etiqueta hija del nodo principal es la que queremos
-            if (childNode.getNodeName().equals("cliente")) {
-                //creamos una lista con los clientes que existan
-                NodeList nListClientes = childNode.getChildNodes();
-                System.out.println("Existen: " + nListClientes.getLength() + " Items distintos");
-            }
-        }
-    }
-
-    public static void cogerPedido(){
-        //Cargamos el nodo pedido que queremos leer y comprobamos cuantos hay creados
-        NodeList nList = document.getElementsByTagName("pedido");
-
-        System.out.println("Existen: " + nList.getLength() + " Items distintos");
-
-        //Creamos una lista por cada item que de cada pedido que exita
-        //TODO crear para cada lista para casda objeto
-
-        //recorremos el archivo buscando el los elemenentos hijo de la raiz especificada en nList
-        for (int i = 0; i < nList.getLength(); i++){
-            Node node = nList.item(i);
-
-            if (node.getNodeType() == Node.ELEMENT_NODE){
-                Element eElement = (Element) node;
-
-                //bucamos el contenido que hay en la etiqueta cliente
-                String cliente = eElement.getElementsByTagName("cliente").item(0).getTextContent();
-
-                //mientras encuentre etiquetas que coincidan con producto que nos vaya encontrado el contenido
-                //creamos la variable autoinclemental para diferencia cada producto
-                String producto = "";
-                int contadorProducto = 1;
-                while(eElement.getElementsByTagName("producto").equals("producto")){
-                    eElement.getElementsByTagName("producto").item(0).getTextContent();
+    private static void nodosFicheros(){
+        //Almacenamos en una lista todos los hijos que contenga la raiz
+        childsRoot = root.getChildNodes();
+        //Lista de nombres de tipos de datos
+        itemChild = new ArrayList<String>();
+        List<String> itemChildNumbers = new ArrayList<String>();
+        /*
+        * Navegamos entre los hijos, el primer bucle recorra sobre los hijos del fichero, el otro sobre la Lista donde
+        * Almacenaremos todos los distintos tipos de nodos, compararemos si el nombre del hijo es igual al alguno de los
+        * nodos ya incluidos en nuestra coleccion de nodos
+        * */
+        for (int i = 0; i <childsRoot.getLength() ; i++) {
+            Boolean encontrado = false;
+            for (int j = 0; j < itemChild.size(); j++) {
+                if (childsRoot.item(i).getNodeName().equals(itemChild.get(j))){
+                    encontrado = true;
                 }
-                //bucamos el contenido que hay en la etiqueta fecha
-                eElement.getElementsByTagName("fecha").item(0).getTextContent();
-
-                //TODO aqui ira la lita autoIncreamental creada anteriormente en la que le pasaremos to items correspondiente a su id en el XML
-                //List<String> listaTemporal = new ArrayList<>();
             }
+            if (!encontrado && !(childsRoot.item(i).getNodeName().equals("#text"))){
+                itemChild.add(childsRoot.item(i).getNodeName());
+            }
+        }
+
+        for (int i = 0; i < itemChild.size(); i++) {
+            int numeroItems = 0;
+            for (int j = 0; j <childsRoot.getLength() ; j++) {
+                if (itemChild.get(i).equals(childsRoot.item(j).getNodeName())){
+                    numeroItems++;
+                }
+            }
+            itemChildNumbers.add(itemChild.get(i)+": "+numeroItems);
+        }
+
+        for (int i = 0; i < itemChildNumbers.size(); i++) {
+            System.out.println(itemChildNumbers.get(i));
         }
     }
 
-    public static List crearLista(){
-        //TODO recogemos los datos que queremos y creamos la lista, esta la lanzamos y creamos las listas
+    public static List buscadorNodos(String nodoEntrada){
+        /*
+            Primero leemos el fichero, despues encontramos los nodos
+         */
+        leerFichero();
+        nodosFicheros();
+
+        int posicionNodo =0;
+
+        //Buscamos la posicion del NodoEntrada
+        for (int i = 0; i <itemChild.size() ; i++) {
+            if (itemChild.get(i).equals(nodoEntrada)){
+                posicionNodo = i;
+            }
+        }
+        /*
+         *  Una vez sabemos la posicion de NodoEntrada, sacaremos los datos que contengan metiendolos en una lista
+         *  Usaremos un variable temporal que contara el id de cada nodo Hijo
+         */
+        int identificador = 0;
+
+        for (int i = 0; i <childsRoot.getLength() ; i++) {
+            if (childsRoot.item(i).getNodeName().equals(itemChild.get(posicionNodo))){
+                identificador++;
+                //Con este nodo iremos iterando sobre el XML
+                Node node = childsRoot.item(i);
+                /*
+                * Ahora que sabemos la etiqueta que recorres mediante un switch creamos los objetos que queremos y los meteremos en listas
+                * dependiendo de su tipo que queremos
+                * con Elemente cogeremos el contenido del nodo del archivo XML
+                */
+                if (node.getNodeType() == Node.ELEMENT_NODE){
+                    Element eElement = (Element) node;
+
+                    switch (nodoEntrada){
+                        case "cliente":
+                            Cliente cliente = new Cliente(
+                                    identificador,
+                                    eElement.getElementsByTagName("nombre").item(0).getTextContent(),
+                                    eElement.getElementsByTagName("apellidos").item(0).getTextContent(),
+                                    eElement.getElementsByTagName("direccion").item(0).getTextContent()
+                            );
+                            arrCliente.add(cliente);
+                            break;
+                        case "producto":
+                            Producto producto = new Producto(
+                                    identificador,
+                                    eElement.getElementsByTagName("nombre").item(0).getTextContent(),
+                                    Float.parseFloat(eElement.getElementsByTagName("precio").item(0).getTextContent())
+                            );
+                            arrProducto.add(producto);
+                            break;
+                        case "pedido":
+                            /*
+                                Como pedido tiene una cantidad variable de producto, con este while meto en un lista
+                                la cantidad de productos que contiene cada pedido
+                             */
+                            //TODO Coger lo datos de los productos
+                            NodeList listaProductos = node.getChildNodes();
+                            List<String> listProductos = new ArrayList<>();
+
+                            for (int j = 0; j <listaProductos.getLength() ; j++) {
+                                if (listaProductos.item(j).getNodeName().equals("producto")) {
+                                    listProductos.add(listaProductos.item(j).getTextContent());
+                                }
+                            }
+                            Pedido pedido = new Pedido(
+                                    identificador,
+                                    Integer.parseInt(eElement.getElementsByTagName("cliente").item(0).getTextContent()),
+                                    listProductos,
+                                    eElement.getElementsByTagName("fecha").item(0).getTextContent()
+                            );
+                            arrPedido.add(pedido);
+                            break;
+                        default:
+                            System.out.println("No existe ese Nodo");
+                            break;
+                    }
+                }
+            }
+        }
+
+        //Devolvemos el Array
+        switch (nodoEntrada){
+            case "cliente":
+                return arrCliente;
+            case "producto":
+                return arrProducto;
+            case "pedido":
+                return arrPedido;
+        }
+
         return null;
     }
+
 }

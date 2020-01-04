@@ -11,7 +11,5 @@ public class IncrementContribution implements Runnable{
     }
 
     public void run() {
-        System.out.println("Partner "+partnerNumber + " contributed with "+ contributionQuantity.firtsContribution()+
-                ", now the banckAccount is "+contributionQuantity.fourContribution());
     }
 }

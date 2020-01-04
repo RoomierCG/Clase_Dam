@@ -19,7 +19,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../AccesoDatos" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/AccountAplication" />
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -47,9 +47,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="620" y="279" key="FileChooserDialogImpl" timestamp="1576480970035">
-      <screen x="0" y="0" width="1680" height="1050" />
+    <state x="567" y="230" key="FileChooserDialogImpl" timestamp="1576525279965">
+      <screen x="0" y="0" width="1536" height="864" />
     </state>
+    <state x="567" y="230" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1576525279965" />
     <state x="620" y="279" key="FileChooserDialogImpl/0.0.1680.1050@0.0.1680.1050" timestamp="1576480970035" />
   </component>
 </project>
