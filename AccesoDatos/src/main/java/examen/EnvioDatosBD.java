@@ -26,7 +26,13 @@ public class EnvioDatosBD {
          */
         //insertarCliente();
         //insertarProducto();
-        insertarPedido();
+        //insertarPedido();
+
+        try{
+            connection.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -91,7 +97,7 @@ public class EnvioDatosBD {
 
                 //todo el bucle que inserte en la otra tabla todas las compras
                 for (int j = 0; j < arrPedido.get(i).getProducto().size(); j++) {
-                    preparedStatement2.setInt(1, arrPedido.get(i).getId());
+                    preparedStatement2.setInt(1, arrPedido.get(i).getCliente());
                     preparedStatement2.setInt(2, Integer.parseInt(arrPedido.get(i).getProducto().get(j).toString()));
 
                     preparedStatement2.executeUpdate();

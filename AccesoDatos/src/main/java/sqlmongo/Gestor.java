@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-
-public class SqlGestor {
+public class Gestor {
     public static void main(String[] args) {
         //iniciamos el menu
         menuOpciones();
@@ -16,6 +15,11 @@ public class SqlGestor {
 
     private static void menuOpciones() {
         int eleccion;
+
+        System.out.println("=======================\n"+
+                "1) MySQL\n"+
+                "2) MongoDB\n");
+        final int baseDeDatos = seleccionarBD();
 
         do {
             System.out.println("=======================\n" +
@@ -31,10 +35,17 @@ public class SqlGestor {
 
             //creamos un objeto para tener acceso a las fuciones para las consultas
             DatosSql datosSql = new DatosSql();
+            DatosMongo datosMongo = new DatosMongo();
 
             switch (eleccion) {
                 case 1:
-                    List<Alumno> alumnos = datosSql.seleccionAlumnos();
+
+                    List<Alumno> alumnos = new ArrayList<>();
+                    if (baseDeDatos == 1) {
+                        alumnos = datosSql.seleccionAlumnos();
+                    }else if (baseDeDatos == 2){
+                        alumnos = datosMongo.seleccionAlumnos();
+                    }
 
                     if (alumnos == null) {
                         System.out.println("ERROR: no se ha podido ejecutar la consultas");
@@ -46,16 +57,31 @@ public class SqlGestor {
                         }
                     }
                     break;
+
                 case 2:
-                    Alumno alumno = datosSql.seleccionAlumnoId(pedirIdAlumno());
+
+                    Alumno alumno = null;
+                    if (baseDeDatos == 1) {
+                        alumno  = datosSql.seleccionAlumnoId(pedirIdAlumno());
+                    }else if (baseDeDatos == 2){
+                        alumno  = datosMongo.seleccionAlumnoId(pedirIdAlumno());
+                    }
+
                     if (alumno == null) {
                         System.out.println("ERROR: no se ha podido crear el alumo");
                     } else {
                         System.out.println(alumno.getId() + " " + alumno.getNombre() + " " + alumno.getApellido() + " " + alumno.getGrupo() + " " + alumno.getFecha_nacimiento());
                     }
                     break;
+                    
                 case 3:
-                    List<Alumno> alumnoSalida = datosSql.seleccionAlumnoApellido(pediApellido());
+
+                    List<Alumno> alumnoSalida = new ArrayList<>();
+                    if (baseDeDatos == 1) {
+                        alumnoSalida = datosSql.seleccionAlumnoApellido(pediApellido());
+                    }else if (baseDeDatos == 2){
+                        alumnoSalida = datosMongo.seleccionAlumnoApellido(pediApellido());
+                    }
 
                     if (alumnoSalida.isEmpty()) {
                         System.out.println("ERROR: no se ha podido encontrar ese alumno");
@@ -71,8 +97,17 @@ public class SqlGestor {
                         }
                     }
                     break;
+
                 case 4:
-                    List<Alumno> ListaTamaño = datosSql.seleccionAlumnos();
+
+                    List<Alumno> ListaTamaño = null;
+
+                    if (baseDeDatos == 1) {
+                        ListaTamaño = datosSql.seleccionAlumnos();
+                    }else if (baseDeDatos == 2){
+                        ListaTamaño = datosMongo.seleccionAlumnos();
+                    }
+
                     alumno = new Alumno(ListaTamaño.size(), pedirNombre(), pediApellido(), pedirGrupo(), pedirFecha());
 
                     if (datosSql.crearAlumno(alumno)) {
@@ -81,8 +116,16 @@ public class SqlGestor {
                         System.out.println("ERROR: LA CAGASTE");
                     }
                     break;
+
                 case 5:
-                    ListaTamaño = datosSql.seleccionAlumnos();
+
+                    ListaTamaño = null;
+                    if (baseDeDatos == 1) {
+                        ListaTamaño = datosSql.seleccionAlumnos();
+                    }else if (baseDeDatos == 2){
+                        ListaTamaño = datosMongo.seleccionAlumnos();
+                    }
+
                     int id = 0;
                     do {
                         System.out.println("Ingrese el id del alumno");
@@ -123,8 +166,16 @@ public class SqlGestor {
                         System.out.println("HOLD........");
                     }
                     break;
+
                 case 6:
-                    ListaTamaño = datosSql.seleccionAlumnos();
+
+                    ListaTamaño = null;
+                    if (baseDeDatos == 1) {
+                        ListaTamaño = datosSql.seleccionAlumnos();
+                    }else if (baseDeDatos == 2){
+                        ListaTamaño = datosMongo.seleccionAlumnos();
+                    }
+
                     do {
                         System.out.println("Ingrese el id del alumno que desea ELIMINAR");
                         id = pedirDato(0, ListaTamaño.size() - 1);
@@ -139,9 +190,15 @@ public class SqlGestor {
                     break;
 
                 case 7:
-                    List<Alumno> alumnosEntrada = LecturaDOM.creacionLits();
 
-                    if (!datosSql.insertarAlumnos(alumnosEntrada)) {
+                    List<Alumno> alumnosEntrada = null;
+                    if (baseDeDatos == 1) {
+                        alumnosEntrada = LecturaDOM.creacionLits();
+                    }else if (baseDeDatos == 2){
+                        alumnosEntrada = LecturaDOM.creacionLits();
+                    }
+
+                    if (!datosSql.insertarAlumnos(alumnosEntrada) || !datosMongo.insertarAlumnos(alumnosEntrada)) {
                         System.out.println("ERROR: no se han creado los alumnos");
                     } else {
                         System.out.println("Todos se ingreso correctamente");
@@ -232,5 +289,25 @@ public class SqlGestor {
 
         LecturaDOM.convertirFecha(dia + "/" + mes + "/" + año);
         return null;
+    }
+
+    private static int seleccionarBD(){
+        Scanner scanner = new Scanner(System.in);
+
+        try{
+
+            int baseDeDatos = scanner.nextInt();
+
+            if (baseDeDatos == 1 || baseDeDatos == 2){
+                return baseDeDatos;
+            }else{
+                System.out.println("Warning: numero fuera de rango, prueba otra vez");
+                seleccionarBD();
+            }
+        }catch (InputMismatchException num) {
+            System.out.println("ERROR: dato no valido, intentalo otra vez");
+            return seleccionarBD();
+        }
+        return -1;
     }
 }
