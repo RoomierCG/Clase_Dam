@@ -179,15 +179,4 @@ public class DatosSql implements MetodosBaseDeDatos {
         }
     }
 
-    private static Date convertirFecha(String fecha) {
-        try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-            java.util.Date parsedDate = dateFormat.parse(fecha);
-            Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
-            return new Date(timestamp.getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

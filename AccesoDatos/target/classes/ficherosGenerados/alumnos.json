@@ -1,1 +1,29 @@
-[{"alumno":{"apellidos":"Ortega","fechaNacimiento":"14\/3\/2000","grupo":"DAW","id":0,"nombre":"José"}},{"alumno":{"apellidos":"Pascual","fechaNacimiento":"8\/5\/2000","grupo":"DAW","id":1,"nombre":"Alba"}},{"alumno":{"apellidos":"Carrasco","fechaNacimiento":"30\/12\/1999","grupo":"DAM","id":2,"nombre":"Alberto"}}]
+[
+  {
+    "alumno": {
+      "apellidos": "Ortega",
+      "fechaNacimiento": "14\/3\/2000",
+      "grupo": "DAW",
+      "id": 0,
+      "nombre": "José"
+    }
+  },
+  {
+    "alumno": {
+      "apellidos": "Pascual",
+      "fechaNacimiento": "8\/5\/2000",
+      "grupo": "DAW",
+      "id": 1,
+      "nombre": "Alba"
+    }
+  },
+  {
+    "alumno": {
+      "apellidos": "Carrasco",
+      "fechaNacimiento": "30\/12\/1999",
+      "grupo": "DAM",
+      "id": 2,
+      "nombre": "Alberto"
+    }
+  }
+]

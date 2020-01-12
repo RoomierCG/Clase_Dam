@@ -1,9 +1,9 @@
 package sqlmongo;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface MetodosBaseDeDatos {
+
     List<Alumno> seleccionAlumnos();
 
     Alumno seleccionAlumnoId(int id);

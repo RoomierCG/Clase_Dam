@@ -22,8 +22,8 @@ public class LecturaDOM {
         creacionLits();
     }
 
-    public static List creacionLits(){
-        List<Alumno>alumnos = new ArrayList<>();
+    public static List creacionLits() {
+        List<Alumno> alumnos = new ArrayList<>();
 
         //creacion de objetos necesario para poder leer un fichero xml
         Document document = null;
@@ -40,10 +40,10 @@ public class LecturaDOM {
 
         NodeList nList = document.getElementsByTagName("alumno");
 
-        for (int i = 0; i < nList.getLength(); i++){
+        for (int i = 0; i < nList.getLength(); i++) {
             Node node = nList.item(i);
 
-            if (node.getNodeType() == Node.ELEMENT_NODE){
+            if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) node;
 
                 Alumno alumno = new Alumno(
@@ -60,9 +60,10 @@ public class LecturaDOM {
         return alumnos;
     }
 
-    public static Date convertirFecha(String fecha){
+    public static Date convertirFecha(String fecha) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
             java.util.Date parsedDate = dateFormat.parse(fecha);
             Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
             return new Date(timestamp.getTime());
@@ -71,5 +72,6 @@ public class LecturaDOM {
         }
         return null;
     }
+
 }
 
