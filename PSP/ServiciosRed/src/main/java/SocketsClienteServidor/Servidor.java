@@ -26,7 +26,7 @@ public class Servidor {
 
         //Escribimos con el servidor y los clientes lo recibiran cuando realicen una conexion
         for (int i = 0; i < 11; i++) {
-            String sMensaje = "Hola, soy el paquete: "+ i+"\n";
+            String sMensaje = "Hola, soy el paquete: " + i + "\n";
             outPutStream.write(sMensaje.getBytes());
         }
 

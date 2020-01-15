@@ -31,7 +31,6 @@ public class EscrituraJson {
 
         for (int i = 0; i < 100; i++) {
             JSONObject alumno = new JSONObject();
-            System.out.println("flag");
             JSONObject itemAlumno = new JSONObject();
             itemAlumno.put("id",i);
             itemAlumno.put("nombre",datosAlumno(listAlumnos));

@@ -9,19 +9,28 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Gestor {
+
     public static void main(String[] args) {
-        //iniciamos el menu
+        /*
+        Este Gestor puede añadir, borrar, consultar, etc... a varias base de datos en la que sera transparente al
+        usuario las consultas desde esta clase, solo hace falta llamar a la clase menuOpciones ya que es la unica que
+        hace llamada a los otros metodos y clases
+         */
         menuOpciones();
     }
 
     private static void menuOpciones() {
+        /*
+            eleecion sera la variable donde seleccionaremos la BD para que despues en el gestor saber a que BD atacar,
+            hay que tener en cuenta que si la BD no esta abirta, las cosultas no podran realizarse
+         */
         int eleccion;
-
         System.out.println("=======================\n" +
                 "1) MySQL\n" +
                 "2) MongoDB\n");
         final int baseDeDatos = seleccionarBD();
 
+        //Este do{}while() dejara de repetirse hasta que el usuario ingrese 8
         do {
             System.out.println("=======================\n" +
                     "1) Seleccionar todos los alumnos\n" +
@@ -34,13 +43,26 @@ public class Gestor {
                     "[8] SALIR");
             eleccion = pedirDato(1, 8);
 
-            //creamos un objeto para tener acceso a las fuciones para las consultas
-            DatosSql datosSql = new DatosSql();
-            DatosMongo datosMongo = new DatosMongo();
+            /*
+                Esta parte de codigo es muy importante para entender el funcionamiento del gestor, llamamos a las clases
+                necesarias que son las que contienen los metedos necesarios para interactuar en la base de datos.
+                Estos empiezan en null ya que si los incializamos estos empezaran a crear la conexion a la Base de Datos
+                mediante el constructor vacio (El que no tiene parametros, EJ: new DatosSql() ), por eso hay un
+                condicional abajo que dependeindo de la eleccion anterior de la base de datos hara una conexion u otra
+             */
+            DatosSql datosSql = null;
+            DatosMongo datosMongo = null;
+
+            if (baseDeDatos == 1) {
+                datosSql = new DatosSql();
+
+            } else if (baseDeDatos == 2) {
+                datosMongo = new DatosMongo();
+            }
+
 
             switch (eleccion) {
                 case 1:
-
                     List<Alumno> alumnos = new ArrayList<>();
                     if (baseDeDatos == 1) {
                         alumnos = datosSql.seleccionAlumnos();
@@ -52,9 +74,7 @@ public class Gestor {
                         System.out.println("ERROR: no se ha podido ejecutar la consultas");
                     } else {
                         for (Alumno alumno : alumnos) {
-                            System.out.println(
-                                    "Alumno numero: " + alumno.getId() + " " + alumno.getNombre() + " " + alumno.getApellido() + " " + alumno.getGrupo() + " " + alumno.getFecha_nacimiento()
-                            );
+                            System.out.println(alumno.toString());
                         }
                     }
                     break;
@@ -71,7 +91,7 @@ public class Gestor {
                     if (alumno == null) {
                         System.out.println("ERROR: no se ha podido crear el alumo");
                     } else {
-                        System.out.println(alumno.getId() + " " + alumno.getNombre() + " " + alumno.getApellido() + " " + alumno.getGrupo() + " " + alumno.getFecha_nacimiento());
+                        System.out.println(alumno.toString());
                     }
                     break;
 
@@ -101,15 +121,15 @@ public class Gestor {
 
                 case 4:
 
-                    List<Alumno> ListaTamaño = null;
+                    List<Alumno> listaTamaño = new ArrayList<>();
 
                     if (baseDeDatos == 1) {
-                        ListaTamaño = datosSql.seleccionAlumnos();
+                        listaTamaño = datosSql.seleccionAlumnos();
                     } else if (baseDeDatos == 2) {
-                        ListaTamaño = datosMongo.seleccionAlumnos();
+                        listaTamaño = datosMongo.seleccionAlumnos();
                     }
 
-                    alumno = new Alumno(ListaTamaño.size(), pedirNombre(), pediApellido(), pedirGrupo(), pedirFecha());
+                    alumno = new Alumno(listaTamaño.size(), pedirNombre(), pediApellido(), pedirGrupo(), pedirFecha());
 
                     if (baseDeDatos == 1) {
                         datosSql.crearAlumno(alumno);
@@ -122,17 +142,17 @@ public class Gestor {
 
                 case 5:
 
-                    ListaTamaño = null;
+                    listaTamaño = null;
                     if (baseDeDatos == 1) {
-                        ListaTamaño = datosSql.seleccionAlumnos();
+                        listaTamaño = datosSql.seleccionAlumnos();
                     } else if (baseDeDatos == 2) {
-                        ListaTamaño = datosMongo.seleccionAlumnos();
+                        listaTamaño = datosMongo.seleccionAlumnos();
                     }
 
-                    int id = 0;
+                    int id;
                     do {
                         System.out.println("Ingrese el id del alumno");
-                        id = pedirDato(0, ListaTamaño.size() - 1);
+                        id = pedirDato(0, listaTamaño.size() - 1);
                         if (baseDeDatos == 1) {
                             System.out.println("Es este alumno? " + datosSql.seleccionAlumnoId(id).getNombre() + " " + datosSql.seleccionAlumnoId(id).getApellido());
                         } else if (baseDeDatos == 2) {
@@ -168,45 +188,46 @@ public class Gestor {
                         }
                     } while (pedida != 5);
 
-                    if (baseDeDatos == 1){
+                    if (baseDeDatos == 1) {
                         datosSql.modificarAlumno(alumno);
                         System.out.println("Se ha acutlizado Windows");
 
-                    }else if(baseDeDatos == 2){
+                    } else if (baseDeDatos == 2) {
                         datosMongo.modificarAlumno(alumno);
                         System.out.println("Se ha acutlizado Windows");
 
-                    }else {
+                    } else {
                         System.out.println("HOLD........");
                     }
                     break;
 
                 case 6:
 
-                    ListaTamaño = null;
+                    listaTamaño = null;
                     if (baseDeDatos == 1) {
-                        ListaTamaño = datosSql.seleccionAlumnos();
+                        listaTamaño = datosSql.seleccionAlumnos();
                     } else if (baseDeDatos == 2) {
-                        ListaTamaño = datosMongo.seleccionAlumnos();
+                        listaTamaño = datosMongo.seleccionAlumnos();
                     }
 
                     do {
                         System.out.println("Ingrese el id del alumno que desea ELIMINAR");
-                        id = pedirDato(0, ListaTamaño.size() - 1);
+                        id = pedirDato(0, listaTamaño.size() - 1);
                         if (baseDeDatos == 1) {
                             System.out.println("Es este alumno? " + datosSql.seleccionAlumnoId(id).getNombre() + " " + datosSql.seleccionAlumnoId(id).getApellido());
                         } else if (baseDeDatos == 2) {
                             System.out.println("Es este alumno? " + datosMongo.seleccionAlumnoId(id).getNombre() + " " + datosMongo.seleccionAlumnoId(id).getApellido());
-                        }                        System.out.println("1) Si\n2)no");
+                        }
+                        System.out.println("1) Si\n2)no");
                     } while (2 == pedirDato(1, 2));
 
-                    if (baseDeDatos == 1){
+                    if (baseDeDatos == 1) {
                         datosSql.eliminarAlumno(id);
                         System.out.println("Objetivo Eliminado correcto, it's me MARIO");
-                    }else if(baseDeDatos == 2){
+                    } else if (baseDeDatos == 2) {
                         datosMongo.eliminarAlumno(id);
                         System.out.println("Objetivo Eliminado correcto, it's me MARIO");
-                    }else{
+                    } else {
                         System.out.println("Ha escapaddo del Gulag");
                     }
 

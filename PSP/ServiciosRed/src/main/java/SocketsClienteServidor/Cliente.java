@@ -1,6 +1,5 @@
 package SocketsClienteServidor;
 
-import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,7 +16,7 @@ public class Cliente {
             InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
             int datos;
 
-            while ((datos = inputStreamReader.read()) != -1){
+            while ((datos = inputStreamReader.read()) != -1) {
                 String dato = String.valueOf((char) datos);
                 System.out.print(dato);
             }

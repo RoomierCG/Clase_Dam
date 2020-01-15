@@ -3,7 +3,11 @@ package sqlmongo;
 import java.util.Date;
 
 public class Alumno {
-
+    /*
+        Este clase POJO, es usada en todas las clases de este paquete haciendola crucial para el programa, con esta
+        clase usaremos desde crear y leer ficheros con alumnos con los datos que contiene abajo, hasta introducirlos
+        en Base de Datos totalmente distintas con los mismo parametros en ambas.
+     */
     private int id;
     private String nombre;
     private String apellido;
@@ -58,6 +62,17 @@ public class Alumno {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
-    public Alumno(){
+    public  Alumno(){
+    }
+   //todo Hacer el metodo toString, para reducir la carga de codigo en la clase Gestor
+
+    @Override
+    public String toString() {
+        return "Alumno: " +
+                "id='" + this.id +
+                ", nombre='" + this.nombre + '\'' +
+                ", apellido='" + this.apellido + '\'' +
+                ", grupo='" + this.grupo + '\'' +
+                ", fecha_nacimiento=" + this.fecha_nacimiento;
     }
 }
