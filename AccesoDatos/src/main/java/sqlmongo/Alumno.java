@@ -65,14 +65,24 @@ public class Alumno {
     public  Alumno(){
     }
    //todo Hacer el metodo toString, para reducir la carga de codigo en la clase Gestor
+   public static String padRight(String s, int n) {
+       return String.format("%-" + n + "s", s);
+   }
+
+   /*
+    public static String padLeft(String s, int n) {
+        return String.format("%" + n + "s", s);
+    }
+    */
 
     @Override
     public String toString() {
-        return "Alumno: " +
-                "id='" + this.id +
-                ", nombre='" + this.nombre + '\'' +
-                ", apellido='" + this.apellido + '\'' +
-                ", grupo='" + this.grupo + '\'' +
-                ", fecha_nacimiento=" + this.fecha_nacimiento;
+        return (
+                "[ALUMNO]" +
+                        " || ID: " + padRight(Integer.toString(this.id),4) +
+                        " || Nombre: " + padRight(this.nombre,10) +
+                        " || Apellido: " + padRight(this.apellido,20) +
+                        " || Grupo: " + padRight(this.grupo,5) +
+                        " || Fecha_Nacimiento: " + padRight(this.fecha_nacimiento.toString(),30) + " ||");
     }
 }
