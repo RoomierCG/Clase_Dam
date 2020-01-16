@@ -9,6 +9,7 @@ import sqlmongo.Alumno;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -32,7 +33,9 @@ public class LecturaDOM {
         //cargamos el fichero en el objeto document el cual sera que leeremos
         try {
             builder = factory.newDocumentBuilder();
-            document = builder.parse(new File("D:\\Repositorios\\ClaseDam\\AccesoDatos\\src\\main\\resources\\ficherosGenerados\\alumnosXML.xml"));
+            String path = Paths.get("").toAbsolutePath().toString();
+            System.out.println(path);
+            document = builder.parse(new File(path+"\\src\\main\\resources\\ficherosGenerados\\alumnosXML.xml"));
         } catch (Exception e) {
             System.out.println("Error al leer el fichero");
             e.printStackTrace();

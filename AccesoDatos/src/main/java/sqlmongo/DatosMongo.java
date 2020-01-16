@@ -1,12 +1,17 @@
 package sqlmongo;
-
+import org.slf4j.LoggerFactory;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 import com.mongodb.MongoClient;
 import com.mongodb.client.*;
+import org.apache.logging.log4j.LogManager;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import java.util.regex.Pattern;
 
 public class DatosMongo implements MetodosBaseDeDatos {
@@ -14,6 +19,10 @@ public class DatosMongo implements MetodosBaseDeDatos {
     //Con esta variable iteramos con la coleccion
     MongoCollection<Document> collection;
     MongoDatabase db;
+    //Crea una variable root tipo logger que es la que inicializa los demas loggers, al ponerlo
+    // al nivel OFF desactiva cualquier log que fuese a imprimir a la terminal.
+    static Logger root = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+    static { root.setLevel(Level.OFF); }
 
     @Override
     public List<Alumno> seleccionAlumnos() {
@@ -126,6 +135,7 @@ public class DatosMongo implements MetodosBaseDeDatos {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return false;
     }
 
@@ -155,13 +165,14 @@ public class DatosMongo implements MetodosBaseDeDatos {
     @Override
     public boolean eliminarAlumno(int id) {
         try {
-            collection.deleteOne(new Document("id", id));
+            collection.deleteOne(new Document("id",id));
             return true;
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
         return false;
     }
+
 
     @Override
     public boolean insertarAlumnos(List<Alumno> alumnosEntrada) {
@@ -183,6 +194,7 @@ public class DatosMongo implements MetodosBaseDeDatos {
         }
 
         collection.insertMany(arrDocument);
+
         return false;
     }
 
@@ -201,10 +213,18 @@ public class DatosMongo implements MetodosBaseDeDatos {
     public DatosMongo() {
         //Establecemos una conexion con MongoDB
         MongoClient mongoClient = new MongoClient("localhost", 27017);
+
         //Seleccionamos la base de datos
         db = mongoClient.getDatabase("alumnos");
         //Seleccionamos la coleccion
         collection = db.getCollection("alumnos");
+        //Desactivamos el logger de mongo para deshabilitar los mensajes de informacion que sacaba al utilizarlo
+
+
+
+
+
+
     }
 
 }

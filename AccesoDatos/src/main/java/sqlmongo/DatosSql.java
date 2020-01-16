@@ -135,7 +135,6 @@ public class DatosSql implements MetodosBaseDeDatos {
     @Override
     public boolean eliminarAlumno(int id) {
         String query = "DELETE FROM ALUMNOS WHERE id = ?";
-
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, id);
