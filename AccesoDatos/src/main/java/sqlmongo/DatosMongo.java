@@ -2,6 +2,7 @@ package sqlmongo;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
 import org.bson.Document;
 
 import java.util.ArrayList;
@@ -182,6 +183,18 @@ public class DatosMongo implements MetodosBaseDeDatos {
         }
 
         collection.insertMany(arrDocument);
+        return false;
+    }
+
+    @Override
+    public boolean borrarAlumnos() {
+        try {
+
+            collection.deleteMany(Filters.gt("id",-1));
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return false;
     }
 

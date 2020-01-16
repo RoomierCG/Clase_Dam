@@ -40,8 +40,9 @@ public class Gestor {
                     "5) Actualizar un alumno\n" +
                     "6) Eliminar un alumno\n" +
                     "7) Insertar todos los alumnos\n" +
-                    "[8] SALIR");
-            eleccion = pedirDato(1, 8);
+                    "8) Eliminar todos los alumnos\n" +
+                    "[9] SALIR");
+            eleccion = pedirDato(1, 9);
 
             /*
                 Esta parte de codigo es muy importante para entender el funcionamiento del gestor, llamamos a las clases
@@ -143,7 +144,7 @@ public class Gestor {
 
                     if (baseDeDatos == 1) {
                         alumno = datosSql.seleccionAlumnoId(id);
-                    }else if(baseDeDatos == 2){
+                    } else if (baseDeDatos == 2) {
                         alumno = datosMongo.seleccionAlumnoId(id);
                     }
 
@@ -217,6 +218,18 @@ public class Gestor {
                         System.out.println("Todos se ingreso correctamente");
                     }
                     break;
+                case 8:
+                    if(baseDeDatos == 1){
+                        datosSql.borrarAlumnos();
+                        System.out.println(" ** Se han borrado todos los alumnos con exito ** ");
+
+                    }else if (baseDeDatos == 2){
+                        datosMongo.borrarAlumnos();
+                        System.out.println(" ** Se han borrado todos los alumnos con exito ** ");
+                    }
+
+                    break;
+
             }
         } while (eleccion != 8);
     }
@@ -231,6 +244,9 @@ public class Gestor {
         return grupo[dato - 1];
     }
 
+    /*
+        Todos los metodos a partir de esta seccion x
+     */
     private static int pedirDato(int min, int max) {
         Scanner scanner = new Scanner(System.in);
 
@@ -303,27 +319,7 @@ public class Gestor {
 
     }
 
-    private static int seleccionarBD() {
-        Scanner scanner = new Scanner(System.in);
-
-        try {
-
-            int baseDeDatos = scanner.nextInt();
-
-            if (baseDeDatos == 1 || baseDeDatos == 2) {
-                return baseDeDatos;
-            } else {
-                System.out.println("Warning: numero fuera de rango, prueba otra vez");
-                seleccionarBD();
-            }
-        } catch (InputMismatchException num) {
-            System.out.println("ERROR: dato no valido, intentalo otra vez");
-            return seleccionarBD();
-        }
-        return -1;
-    }
-
-    private static int pedirAlumno(int BD){
+    private static int pedirAlumno(int BD) {
 
         DatosSql datosSql = null;
         DatosMongo datosMongo = null;
@@ -351,5 +347,25 @@ public class Gestor {
         } while (2 == pedirDato(1, 2));
 
         return id;
+    }
+
+    private static int seleccionarBD() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+
+            int baseDeDatos = scanner.nextInt();
+
+            if (baseDeDatos == 1 || baseDeDatos == 2) {
+                return baseDeDatos;
+            } else {
+                System.out.println("Warning: numero fuera de rango, prueba otra vez");
+                seleccionarBD();
+            }
+        } catch (InputMismatchException num) {
+            System.out.println("ERROR: dato no valido, intentalo otra vez");
+            return seleccionarBD();
+        }
+        return -1;
     }
 }

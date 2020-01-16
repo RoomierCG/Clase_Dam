@@ -169,6 +169,21 @@ public class DatosSql implements MetodosBaseDeDatos {
         return false;
     }
 
+    @Override
+    public boolean borrarAlumnos() {
+        String query = "DELETE FROM ALUMNOS WHERE id > -1";
+
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     public DatosSql() {
         String urlBD = "jdbc:mysql://localhost:3306/alumnos?useSSL=false&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
         try {

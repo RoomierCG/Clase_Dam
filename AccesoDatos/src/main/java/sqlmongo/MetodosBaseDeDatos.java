@@ -20,4 +20,6 @@ public interface MetodosBaseDeDatos {
     boolean eliminarAlumno(int id);
 
     boolean insertarAlumnos(List<Alumno> alumnosEntrada);
+
+    boolean borrarAlumnos();
 }
