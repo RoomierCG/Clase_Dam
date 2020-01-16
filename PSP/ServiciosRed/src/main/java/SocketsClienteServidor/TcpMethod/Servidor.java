@@ -1,4 +1,4 @@
-package SocketsClienteServidor;
+package SocketsClienteServidor.TcpMethod;
 
 import java.io.DataOutputStream;
 import java.io.IOException;

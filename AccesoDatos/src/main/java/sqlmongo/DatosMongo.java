@@ -154,9 +154,9 @@ public class DatosMongo implements MetodosBaseDeDatos {
     @Override
     public boolean eliminarAlumno(int id) {
         try {
-            collection.deleteOne(new Document("id",id));
+            collection.deleteOne(new Document("id", id));
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
