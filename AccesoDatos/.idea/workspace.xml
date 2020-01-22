@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7385da93-7692-4e39-99dd-9236845df85e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/sqlmongo/MetodosLista.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sqlmongo/DatosMongo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sqlmongo/DatosMongo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/sqlmongo/Gestor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sqlmongo/Gestor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/sqlmongo/MetodosLista.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/sqlmongo/MetodosLista.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/test.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
