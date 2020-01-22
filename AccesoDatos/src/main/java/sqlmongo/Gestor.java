@@ -7,11 +7,9 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Gestor {
-
+    private static  List<Alumno> alumnos = new ArrayList<Alumno>();
     public static void main(String[] args) {
         /*
         Este Gestor puede añadir, borrar, consultar, etc... a varias base de datos en la que sera transparente al
@@ -20,6 +18,19 @@ public class Gestor {
          */
         menuOpciones();
     }
+
+    public static void extractDBaseList(int bd){
+        DatosSql datosSql = null;
+        DatosMongo datosMongo = null;
+        if (bd == 1) {
+            datosSql = new DatosSql();
+            alumnos = datosSql.seleccionAlumnos();
+        } else if (bd == 2) {
+            datosMongo = new DatosMongo();
+            alumnos = datosMongo.seleccionAlumnos();
+        }
+    }
+
 
     private static void menuOpciones() {
         /*
@@ -56,6 +67,7 @@ public class Gestor {
             DatosSql datosSql = null;
             DatosMongo datosMongo = null;
 
+
             if (baseDeDatos == 1) {
                 datosSql = new DatosSql();
 
@@ -65,32 +77,15 @@ public class Gestor {
 
 
             switch (eleccion) {
+                //Seleccionar/Mostrar todos los alumnos
                 case 1:
-                    List<Alumno> alumnos = new ArrayList<>();
-                    if (baseDeDatos == 1) {
-                        alumnos = datosSql.seleccionAlumnos();
-                    } else if (baseDeDatos == 2) {
-                        alumnos = datosMongo.seleccionAlumnos();
-                    }
-
-                    if (alumnos == null) {
-                        System.out.println("ERROR: no se ha podido ejecutar la consultas");
-                    } else {
-                        for (Alumno alumno : alumnos) {
+                    for (Alumno alumno : alumnos) {
                             System.out.println(alumno.toString());
                         }
-                    }
                     break;
-
+                //Seleccionar un alumno por ID
                 case 2:
-
-                    Alumno alumno = null;
-                    if (baseDeDatos == 1) {
-                        alumno = datosSql.seleccionAlumnoId(pedirIdAlumno());
-                    } else if (baseDeDatos == 2) {
-                        alumno = datosMongo.seleccionAlumnoId(pedirIdAlumno());
-                    }
-
+                    Alumno alumno = MetodosLista.busqueda(pedirIdAlumno(),alumnos);
                     if (alumno == null) {
                         System.out.println("ERROR: no se ha podido encontrar el alumo");
                     } else {
@@ -98,18 +93,16 @@ public class Gestor {
                     }
                     break;
 
+                //Seleccionar alumnos por apellidos
                 case 3:
 
-                    List<Alumno> alumnoSalida = new ArrayList<>();
-                    if (baseDeDatos == 1) {
-                        alumnoSalida = datosSql.seleccionAlumnoApellido(pediApellido());
-                    } else if (baseDeDatos == 2) {
-                        alumnoSalida = datosMongo.seleccionAlumnoApellido(pediApellido());
-                    }
-
+                    List<Alumno> alumnoSalida = MetodosLista.busqueda(pediApellido(),alumnos);
                     if (alumnoSalida.isEmpty()) {
                         System.out.println("ERROR: no se ha podido encontrar ese alumno");
                     } else {
+                        if(alumnoSalida.size()!=1) {
+                            System.out.println("Se han encontrado " + alumnoSalida.size() + " apellidos que concuerdan con tu busqueda");
+                        }
                         for (Alumno alumnoIterante : alumnoSalida) {
                             System.out.println(
                                     alumnoIterante.getId() + " " +
@@ -122,27 +115,28 @@ public class Gestor {
                     }
                     break;
 
+
+                //Crear un alumno
                 case 4:
 
                     List<Alumno> listaTamaño = new ArrayList<>();
 
-                    if (baseDeDatos == 1) {
-                        listaTamaño = datosSql.seleccionAlumnos();
-                    } else if (baseDeDatos == 2) {
-                        listaTamaño = datosMongo.seleccionAlumnos();
-                    }
 
-                    alumno = new Alumno(listaTamaño.size(), pedirNombre(), pediApellido(), pedirGrupo(), pedirFecha());
+                    Alumno nuevo = new Alumno(listaTamaño.size(), pedirNombre(), pediApellido(), pedirGrupo(), pedirFecha());
 
                     if (baseDeDatos == 1) {
-                        datosSql.crearAlumno(alumno);
+                        datosSql.crearAlumno(nuevo);
+                        alumnos.add(nuevo);
                     } else if (baseDeDatos == 2) {
-                        datosMongo.crearAlumno(alumno);
+                        datosMongo.crearAlumno(nuevo);
+                        alumnos.add(nuevo);
                     } else {
                         System.out.println("ERROR: Algo inesperado, I'm a surgeon");
                     }
                     break;
 
+
+                //Actualizar un alumno
                 case 5:
 
                     listaTamaño = null;
@@ -193,10 +187,12 @@ public class Gestor {
 
                     if (baseDeDatos == 1) {
                         datosSql.modificarAlumno(alumno);
+                        alumnos.set(MetodosLista.extractPosicion(id,alumnos),alumno);
                         System.out.println("Se ha acutlizado Windows");
 
                     } else if (baseDeDatos == 2) {
                         datosMongo.modificarAlumno(alumno);
+                        alumnos.set(MetodosLista.extractPosicion(id,alumnos),alumno);
                         System.out.println("Se ha acutlizado Windows");
 
                     } else {
@@ -204,6 +200,8 @@ public class Gestor {
                     }
                     break;
 
+
+                //Eliminar un alumno
                 case 6:
 
                     listaTamaño = null;
@@ -226,9 +224,11 @@ public class Gestor {
 
                     if (baseDeDatos == 1) {
                         datosSql.eliminarAlumno(id);
+                        alumnos.remove(MetodosLista.extractPosicion(id,alumnos));
                         System.out.println("Objetivo Eliminado correcto, it's me MARIO");
                     } else if (baseDeDatos == 2) {
                         datosMongo.eliminarAlumno(id);
+                        alumnos.remove(MetodosLista.extractPosicion(id,alumnos));
                         System.out.println("Objetivo Eliminado correcto, it's me MARIO");
                     } else {
                         System.out.println("Ha escapaddo del Gulag");
@@ -236,6 +236,8 @@ public class Gestor {
 
                     break;
 
+
+                //Insertar todos los alumnos desde xml
                 case 7:
 
                     List<Alumno> alumnosEntrada = null;
@@ -254,6 +256,8 @@ public class Gestor {
                         System.out.println("Todos se ingreso correctamente");
                     }
                     break;
+
+                 //Delete all
                 case 8:
                     if(baseDeDatos == 1){
                         datosSql.borrarAlumnos();
@@ -385,23 +389,5 @@ public class Gestor {
         return id;
     }
 
-    private static int seleccionarBD() {
-        Scanner scanner = new Scanner(System.in);
 
-        try {
-
-            int baseDeDatos = scanner.nextInt();
-
-            if (baseDeDatos == 1 || baseDeDatos == 2) {
-                return baseDeDatos;
-            } else {
-                System.out.println("Warning: numero fuera de rango, prueba otra vez");
-                seleccionarBD();
-            }
-        } catch (InputMismatchException num) {
-            System.out.println("ERROR: dato no valido, intentalo otra vez");
-            return seleccionarBD();
-        }
-        return -1;
-    }
 }

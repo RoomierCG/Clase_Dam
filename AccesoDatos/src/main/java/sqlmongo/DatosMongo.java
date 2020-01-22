@@ -166,6 +166,7 @@ public class DatosMongo implements MetodosBaseDeDatos {
     public boolean eliminarAlumno(int id) {
         try {
             collection.deleteOne(new Document("id",id));
+            MetodosLista.vacioNuevo(id);
             return true;
         } catch (Exception e){
             e.printStackTrace();
@@ -219,7 +220,6 @@ public class DatosMongo implements MetodosBaseDeDatos {
         //Seleccionamos la coleccion
         collection = db.getCollection("alumnos");
         //Desactivamos el logger de mongo para deshabilitar los mensajes de informacion que sacaba al utilizarlo
-
 
 
 
