@@ -1,13 +1,13 @@
-package sqlmongo;
+package Gestor_SQL_MONGO.IngresoDatos;
 import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import com.mongodb.MongoClient;
 import com.mongodb.client.*;
-import org.apache.logging.log4j.LogManager;
 import com.mongodb.client.model.Filters;
 import org.bson.Document;
-import org.slf4j.LoggerFactory;
+import Gestor_SQL_MONGO.POJO.Alumno;
+import Gestor_SQL_MONGO.MetodosBaseDeDatos;
 
 import java.util.ArrayList;
 import java.util.List;

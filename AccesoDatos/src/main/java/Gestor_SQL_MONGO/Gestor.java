@@ -1,14 +1,15 @@
-package sqlmongo;
+package Gestor_SQL_MONGO;
 
-import sqlmongo.readFiles.LecturaDOM;
+import Gestor_SQL_MONGO.IngresoDatos.DatosMongo;
+import Gestor_SQL_MONGO.IngresoDatos.DatosSql;
+import Gestor_SQL_MONGO.POJO.Alumno;
+import Gestor_SQL_MONGO.readFiles.LecturaDOM;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Gestor {
 
@@ -248,7 +249,7 @@ public class Gestor {
                         alumnosEntrada = LecturaDOM.creacionLits();
                         control = datosMongo.insertarAlumnos(alumnosEntrada);
                     }
-                    if (control) {
+                    if (!control) {
                         System.out.println("ERROR: no se han creado los alumnos");
                     } else {
                         System.out.println("Todos se ingreso correctamente");
@@ -267,7 +268,7 @@ public class Gestor {
                     break;
 
             }
-        } while (eleccion != 8);
+        } while (eleccion != 9);
     }
 
     private static String pedirGrupo() {

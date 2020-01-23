@@ -1,6 +1,5 @@
-package sqlmongo.readFiles;
+package Gestor_SQL_MONGO.readFiles;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -10,7 +9,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import sqlmongo.Alumno;
+import Gestor_SQL_MONGO.POJO.Alumno;
 
 public class LecturaJSON {
 

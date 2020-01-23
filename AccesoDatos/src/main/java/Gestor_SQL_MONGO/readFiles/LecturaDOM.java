@@ -1,10 +1,10 @@
-package sqlmongo.readFiles;
+package Gestor_SQL_MONGO.readFiles;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import sqlmongo.Alumno;
+import Gestor_SQL_MONGO.POJO.Alumno;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;

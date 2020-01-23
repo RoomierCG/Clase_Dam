@@ -1,4 +1,4 @@
-package sqlmongo.writeFiles;
+package Gestor_SQL_MONGO.writeFiles;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static sqlmongo.writeFiles.EscrituraXML.*;
+import static Gestor_SQL_MONGO.writeFiles.EscrituraXML.*;
 
 public class EscrituraJson {
     public static void main(String[] args) {

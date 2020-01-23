@@ -1,17 +1,36 @@
-package sqlmongo;
+package Gestor_SQL_MONGO.POJO;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Alumno {
+@Entity
+@Table(name="alumnos.alumnos")
+public class Alumno implements Serializable {
+
     /*
         Este clase POJO, es usada en todas las clases de este paquete haciendola crucial para el programa, con esta
         clase usaremos desde crear y leer ficheros con alumnos con los datos que contiene abajo, hasta introducirlos
         en Base de Datos totalmente distintas con los mismo parametros en ambas.
      */
+
+    @Id
+    @Column(name="id")
     private int id;
+
+    @Column(name="nombre")
     private String nombre;
+
+    @Column(name="apellido")
     private String apellido;
+
+    @Column(name="grupo")
     private String grupo;
+
+    @Column(name="fechaNacimiento")
     private Date fecha_nacimiento;
 
     public int getId() {
@@ -64,7 +83,8 @@ public class Alumno {
 
     public  Alumno(){
     }
-   //todo Hacer el metodo toString, para reducir la carga de codigo en la clase Gestor
+
+    //rellenar con blanco los datos disponibles
    public static String padRight(String s, int n) {
        return String.format("%-" + n + "s", s);
    }

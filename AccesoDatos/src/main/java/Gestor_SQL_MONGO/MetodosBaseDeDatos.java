@@ -1,4 +1,6 @@
-package sqlmongo;
+package Gestor_SQL_MONGO;
+
+import Gestor_SQL_MONGO.POJO.Alumno;
 
 import java.util.List;
 

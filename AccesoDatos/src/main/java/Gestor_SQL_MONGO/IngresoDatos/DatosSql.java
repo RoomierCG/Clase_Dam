@@ -1,10 +1,9 @@
-package sqlmongo;
+package Gestor_SQL_MONGO.IngresoDatos;
 
-import sqlmongo.readFiles.LecturaDOM;
+import Gestor_SQL_MONGO.POJO.Alumno;
+import Gestor_SQL_MONGO.MetodosBaseDeDatos;
 
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 

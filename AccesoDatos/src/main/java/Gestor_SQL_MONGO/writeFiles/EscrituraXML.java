@@ -1,4 +1,4 @@
-package sqlmongo.writeFiles;
+package Gestor_SQL_MONGO.writeFiles;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
