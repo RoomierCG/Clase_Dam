@@ -12,17 +12,16 @@ public class Ejemplo {
 
         Session session = null;
         session = Hibernate.getSession();
-        String queryStr = "select emp from Employee emp";
-        Query query = session.createQuery(queryStr);
+        Query query = session.createQuery("from Alumno where id > :id ");
+        query.setParameter("id", 0);
 
         return query.list();
     }
 
     public static void main(String a[]) {
 
-        Alumno empDao = new Alumno();
-        List<Alumno> empList = getEmployeeList();
-        System.out.println("emp size: "+empList.size());
-        empList.stream().forEach(System.out::println);
+        List<Alumno> alumnos = getEmployeeList();
+        System.out.println("emp size: "+alumnos.size());
+        alumnos.stream().forEach(System.out::println);
     }
 }

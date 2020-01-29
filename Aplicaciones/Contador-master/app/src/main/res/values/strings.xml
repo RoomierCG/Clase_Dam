@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Contador V2</string>
+    <string name="texto_boton_icrementar">+</string>
+    <string name="texto_boton_decrementar">-</string>
+    <string name="texto_boton_reiniciar">Reset</string>
+    <string name="numero_cero">0</string>
+    <string name="numero_uno">1</string>
+    <string name="texto_checkbox_valores_negativos">¿Permitir valores negativos?</string>
+    <string name="texto_editText_valor_por_defecto_contador">Valor por defecto del contador</string>
+    <string name="texto_editText_valor_incremento_contador">Valor de incremento del contador</string>
+    <string name="texto_boton_guardar_ajustes">Guardar</string>
+</resources>
