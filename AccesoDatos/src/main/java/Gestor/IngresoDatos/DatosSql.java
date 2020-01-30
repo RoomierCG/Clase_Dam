@@ -1,7 +1,7 @@
-package Gestor_SQL_MONGO.IngresoDatos;
+package Gestor.IngresoDatos;
 
-import Gestor_SQL_MONGO.POJO.Alumno;
-import Gestor_SQL_MONGO.MetodosBaseDeDatos;
+import Gestor.POJO.Alumno;
+import Gestor.MetodosBaseDeDatos;
 
 import java.sql.*;
 import java.util.ArrayList;

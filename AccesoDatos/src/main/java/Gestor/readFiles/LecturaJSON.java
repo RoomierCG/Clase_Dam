@@ -1,4 +1,4 @@
-package Gestor_SQL_MONGO.readFiles;
+package Gestor.readFiles;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import Gestor_SQL_MONGO.POJO.Alumno;
+import Gestor.POJO.Alumno;
 
 public class LecturaJSON {
 

@@ -1,6 +1,6 @@
-package Gestor_SQL_MONGO;
+package Gestor;
 
-import Gestor_SQL_MONGO.POJO.Alumno;
+import Gestor.POJO.Alumno;
 
 import java.util.List;
 

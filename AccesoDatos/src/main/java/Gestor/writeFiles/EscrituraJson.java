@@ -1,4 +1,4 @@
-package Gestor_SQL_MONGO.writeFiles;
+package Gestor.writeFiles;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import static Gestor_SQL_MONGO.writeFiles.EscrituraXML.*;
+import static Gestor.writeFiles.EscrituraXML.*;
 
 public class EscrituraJson {
     public static void main(String[] args) {

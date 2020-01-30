@@ -1,4 +1,4 @@
-package Gestor_SQL_MONGO.writeFiles;
+package Gestor.writeFiles;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

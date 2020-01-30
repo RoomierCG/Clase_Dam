@@ -1,9 +1,9 @@
-package Gestor_SQL_MONGO;
+package Gestor;
 
-import Gestor_SQL_MONGO.IngresoDatos.DatosMongo;
-import Gestor_SQL_MONGO.IngresoDatos.DatosSql;
-import Gestor_SQL_MONGO.POJO.Alumno;
-import Gestor_SQL_MONGO.readFiles.LecturaDOM;
+import Gestor.IngresoDatos.DatosMongo;
+import Gestor.IngresoDatos.DatosSql;
+import Gestor.POJO.Alumno;
+import Gestor.readFiles.LecturaDOM;
 
 import java.sql.Date;
 import java.util.ArrayList;

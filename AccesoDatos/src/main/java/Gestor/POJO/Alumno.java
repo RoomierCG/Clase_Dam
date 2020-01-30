@@ -1,4 +1,4 @@
-package Gestor_SQL_MONGO.POJO;
+package Gestor.POJO;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
