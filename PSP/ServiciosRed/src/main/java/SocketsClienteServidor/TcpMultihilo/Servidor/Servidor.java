@@ -27,7 +27,7 @@ public class Servidor {
                 public void run() {
                     ServerSocket serverSocket = null;
                     try {
-                        serverSocket = new ServerSocket(9090);
+                        serverSocket = new ServerSocket(PORT);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

@@ -36,7 +36,7 @@ public class ClienteThread {
 
                         //recibo del servidor
                         System.out.println(inputStream.readUTF());
-                        Thread.sleep(1000);
+                        Thread.sleep(0);
 
                         //Envio un mensaje al cliente
                         String mensaje = "hola soy el cliente"+ Thread.currentThread().getId() + ".";
