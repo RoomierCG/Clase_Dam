@@ -27,7 +27,7 @@ public class Hibernate {
 
     public static void loadSessionFactory(){
 
-        Configuration configuration = new Configuration().configure("Hibernate/HibernateAlumno.cfg.xml");
+        Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
         configuration.addAnnotatedClass(Alumno.class);
         ServiceRegistry srvcReg = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
         sessionFactory = configuration.buildSessionFactory(srvcReg);
