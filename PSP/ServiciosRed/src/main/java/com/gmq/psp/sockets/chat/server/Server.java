@@ -12,9 +12,6 @@ import java.util.concurrent.Executors;
 
 public class Server {
 
-    //TODO que no puedan entrar mas de un user con el mismo nombre
-    //todo que el usuario cierre su socket con consecuencia su hilo
-
     private int serverIp;
     private DataOutputStream out;
     private Socket socketClient;
@@ -47,7 +44,7 @@ public class Server {
                 Server serverClient = new Server(this.socketClient, this.nameClient);
 
                 arrClientes.add(serverClient);
-                pool.execute(new Thread(threadClient));
+                pool.execute(threadClient);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,19 +54,28 @@ public class Server {
     }
 
     /*
-        Este hilo se encarga de recoger el mensaje que envia un usuario de la pool
+        Este hilo se encarga de recoger el mensaje que envia un usuario de la pool, y dependiedo del tipo de mensaje
+        el servidor reenviara al mensaje a los usuarios o usuario al que va destinado.
      */
     Runnable threadClient = () -> {
         try {
             DataInputStream in = new DataInputStream(socketClient.getInputStream());
+
+            //Este bucle siempre buscando un output de algun usuario
             while (true) {
+                /*
+                    *clientOut: Para que el servidor sepa quien es el que ha enviado el mensaje recogeremos en esta
+                                variable el nombre del usuario que se encuentra al principio del mensaje
+                    *mensaje: recogemos el mensaje exceptuando quien lo a mandado,es decir, solo el texto
+                 */
                 try {
                     String mensaje = in.readUTF();
-                    System.out.println(mensaje);
+                    System.out.println("\t"+mensaje);
 
                     String clientOut = mensaje.substring(0, mensaje.indexOf(":"));
                     mensaje = mensaje.substring(mensaje.indexOf(" ") + 1);
 
+                    //dependiendo de como sea el mensaje del usuario que lo ha enviado realizara "x" acciones
                     if (mensaje.startsWith("@")) {
                         privMsg(mensaje, clientOut);
                     } else {
@@ -84,15 +90,17 @@ public class Server {
         }
     };
 
+    //Este metodo se ejecuatara solo cuando se conecte por primera vez un usuario
     private String firstMsg(Socket cliente) {
         try {
             DataOutputStream out = new DataOutputStream(cliente.getOutputStream());
             out.writeUTF("Bienvenido al chat");
 
             DataInputStream in = new DataInputStream(cliente.getInputStream());
-            String mensaje = in.readUTF();
-            System.out.println(mensaje);
-            return mensaje.substring(13);
+            String NombreUsuario = in.readUTF();
+            System.out.println(NombreUsuario);
+
+            return NombreUsuario.substring(13);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -103,6 +111,10 @@ public class Server {
     public void privMsg(String mensaje, String clientOut) throws IOException {
         String clientIn = mensaje.substring(1, mensaje.indexOf(" "));
 
+        /*
+            Recorreremos la lista con todos los usuarios y si este no es el mismo usuario que lo ha enviado y en este
+            caso si es el usuario al que le quiere enviar el mensaje se lo envia.
+         */
         for (Server clientServer : arrClientes) {
             if (!clientServer.getNameClient().equals(clientOut) && clientServer.getNameClient().equals(clientIn)) {
                 mensaje = mensaje.substring(mensaje.indexOf(" ") + 1);
@@ -115,6 +127,7 @@ public class Server {
 
     public void globalMsg(String mensaje, String clientOut) throws IOException {
 
+        //recorre a todos los usuarios y se les manda el mensaje execep a quien lo ha escrito
         for (Server clientServer : arrClientes) {
             if (!clientServer.getNameClient().equals(clientOut)) {
                 mensaje = mensaje.substring(mensaje.indexOf(" ") + 1);
@@ -126,13 +139,13 @@ public class Server {
     }
 
     //Constructores y Getter
-    public Server(int serverIp) {
-        this.serverIp = serverIp;
-    }
-
     public Server(Socket socketClient, String nameClient) {
         this.socketClient = socketClient;
         this.nameClient = nameClient;
+    }
+
+    public Server(int serverIp) {
+        this.serverIp = serverIp;
     }
 
     public Socket getSocketClient() {

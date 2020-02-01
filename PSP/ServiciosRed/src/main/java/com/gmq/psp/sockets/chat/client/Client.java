@@ -1,5 +1,6 @@
 package com.gmq.psp.sockets.chat.client;
 
+import com.gmq.psp.sockets.chat.server.Server;
 import com.gmq.psp.sockets.chat.server.ServerStatus;
 
 import java.io.DataInputStream;
@@ -8,6 +9,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
+
+import static com.gmq.psp.sockets.chat.server.Server.arrClientes;
 
 public class Client {
 
@@ -20,10 +23,16 @@ public class Client {
     private Scanner scanner = new Scanner(System.in);
 
     public void start() {
+        //Con Este metodo enviamos al servidor un mensaje indentificandonos y recibimos un mensaje suyo.
         wellcome();
 
+        /*
+            La clase ServerStatus contiene un Runnnable que sera el encargado de imprimir en la pantalla del user todos
+            los inputs recibidos
+         */
         ServerStatus serverStatus = new ServerStatus(client);
         new Thread(serverStatus).start();
+        //Estara constantemente leeyendo lo que el usuario meta por teclado
         mensages();
     }
 
@@ -42,17 +51,6 @@ public class Client {
         write.run();
     }
 
-    //Construtor y Getter del socket
-    public Client(String clientAdress, int clientIp, String clientName) {
-        this.clientAdress = clientAdress;
-        this.clientIp = clientIp;
-        this.clientName = clientName;
-    }
-
-    public Socket getClient() {
-        return client;
-    }
-
     //Entrada al servidor
     public void wellcome() {
         try {
@@ -67,5 +65,16 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    //Construtor y Getter del socket
+    public Client(String clientAdress, int clientIp, String clientName) {
+        this.clientAdress = clientAdress;
+        this.clientIp = clientIp;
+        this.clientName = clientName;
+    }
+
+    public Socket getClient() {
+        return client;
     }
 }
