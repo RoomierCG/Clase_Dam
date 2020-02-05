@@ -11,9 +11,8 @@ public class mostrarTodos {
 
         Session session = null;
         session = Hibernate.getSession();
-        String queryStr = "from Alumno emp";
+        String queryStr = "from Alumno alum";
         Query query = session.createQuery(queryStr);
-
         return query.list();
     }
 

@@ -14,11 +14,14 @@ public class eliminarTodos {
         Transaction transaction = session.beginTransaction();
 
         //Delete a persistent object
-        Alumno customer1=session.get(Alumno.class, 3);
-        if(customer1!=null){
-            session.delete(customer1);
-            System.out.println("Customer 1 is deleted");
-            transaction.commit();
+        for (int i = 0; i < 100; i++) {
+            Alumno customer1=session.get(Alumno.class, i);
+            if(customer1!=null){
+                session.delete(customer1);
+                System.out.println("Customer 1 is deleted");
+
+            }
         }
+        transaction.commit();
     }
 }

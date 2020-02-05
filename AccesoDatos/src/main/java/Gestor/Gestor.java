@@ -1,5 +1,6 @@
 package Gestor;
 
+import Gestor.IngresoDatos.DatosHibernate;
 import Gestor.IngresoDatos.DatosMongo;
 import Gestor.IngresoDatos.DatosSql;
 import Gestor.POJO.Alumno;
@@ -30,8 +31,9 @@ public class Gestor {
         int eleccion;
         System.out.println("=======================\n" +
                 "1) MySQL\n" +
-                "2) MongoDB\n");
-        final int baseDeDatos = pedirDato(1,2);
+                "2) MongoDB\n" +
+                "3) Hibernate\n");
+        final int baseDeDatos = pedirDato(1,3);
 
         //Este do{}while() dejara de repetirse hasta que el usuario ingrese 8
         do {
@@ -56,12 +58,12 @@ public class Gestor {
              */
             DatosSql datosSql = null;
             DatosMongo datosMongo = null;
+            DatosHibernate datosHibernate = null;
 
-            if (baseDeDatos == 1) {
-                datosSql = new DatosSql();
-
-            } else if (baseDeDatos == 2) {
-                datosMongo = new DatosMongo();
+            switch (baseDeDatos){
+                case 1: datosSql = new DatosSql();break;
+                case 2: datosMongo = new DatosMongo();break;
+                case 3: datosHibernate = new DatosHibernate();break;
             }
 
 
@@ -72,6 +74,8 @@ public class Gestor {
                         alumnos = datosSql.seleccionAlumnos();
                     } else if (baseDeDatos == 2) {
                         alumnos = datosMongo.seleccionAlumnos();
+                    } else if (baseDeDatos == 3){
+                        alumnos = datosHibernate.seleccionAlumnos();
                     }
 
                     if (alumnos == null) {
@@ -106,6 +110,8 @@ public class Gestor {
                         alumnoSalida = datosSql.seleccionAlumnoApellido(pediApellido());
                     } else if (baseDeDatos == 2) {
                         alumnoSalida = datosMongo.seleccionAlumnoApellido(pediApellido());
+                    } else if (baseDeDatos == 3){
+                        alumnoSalida = datosHibernate.seleccionAlumnoApellido(pediApellido());
                     }
 
                     if (alumnoSalida.isEmpty()) {
@@ -139,7 +145,10 @@ public class Gestor {
                         datosSql.crearAlumno(alumno);
                     } else if (baseDeDatos == 2) {
                         datosMongo.crearAlumno(alumno);
-                    } else {
+                    } else if (baseDeDatos == 2) {
+                        datosHibernate.crearAlumno(alumno);
+                    }
+                    else {
                         System.out.println("ERROR: Algo inesperado, I'm a surgeon");
                     }
                     break;
@@ -151,6 +160,8 @@ public class Gestor {
                         listaTamaño = datosSql.seleccionAlumnos();
                     } else if (baseDeDatos == 2) {
                         listaTamaño = datosMongo.seleccionAlumnos();
+                    } else if (baseDeDatos == 3){
+                        listaTamaño = datosHibernate.seleccionAlumnos();
                     }
 
                     int id;
@@ -212,6 +223,8 @@ public class Gestor {
                         listaTamaño = datosSql.seleccionAlumnos();
                     } else if (baseDeDatos == 2) {
                         listaTamaño = datosMongo.seleccionAlumnos();
+                    }else if (baseDeDatos == 2){
+                        listaTamaño = datosHibernate.seleccionAlumnos();
                     }
 
                     do {
@@ -241,13 +254,14 @@ public class Gestor {
 
                     List<Alumno> alumnosEntrada = null;
                     Boolean control = true;
+                    alumnosEntrada = LecturaDOM.creacionLits();
 
                     if (baseDeDatos == 1) {
-                        alumnosEntrada = LecturaDOM.creacionLits();
                         control = datosSql.insertarAlumnos(alumnosEntrada);
                     } else if (baseDeDatos == 2) {
-                        alumnosEntrada = LecturaDOM.creacionLits();
                         control = datosMongo.insertarAlumnos(alumnosEntrada);
+                    }else if(baseDeDatos == 3){
+                        control = datosHibernate.insertarAlumnos(alumnosEntrada);
                     }
                     if (!control) {
                         System.out.println("ERROR: no se han creado los alumnos");
@@ -263,9 +277,13 @@ public class Gestor {
                     }else if (baseDeDatos == 2){
                         datosMongo.borrarAlumnos();
                         System.out.println(" ** Se han borrado todos los alumnos con exito ** ");
+                    } else if (baseDeDatos == 3) {
+                        datosHibernate.borrarAlumnos();
+                        System.out.println(" ** Se han borrado todos los alumnos con exito ** ");
                     }
 
-                    break;
+
+                        break;
 
             }
         } while (eleccion != 9);
@@ -360,6 +378,7 @@ public class Gestor {
 
         DatosSql datosSql = null;
         DatosMongo datosMongo = null;
+        DatosHibernate datosHibernate = null;
         List<Alumno> listaTamaño = null;
 
         if (BD == 1) {
