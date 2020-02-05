@@ -90,7 +90,7 @@ public class Server {
         }
     };
 
-    //Este metodo se ejecuatara solo cuando se conecte por primera vez un usuario
+    //Este método se ejecutará solo cuando se conecte por primera vez un usuario
     private String firstMsg(Socket cliente) {
         try {
             DataOutputStream out = new DataOutputStream(cliente.getOutputStream());

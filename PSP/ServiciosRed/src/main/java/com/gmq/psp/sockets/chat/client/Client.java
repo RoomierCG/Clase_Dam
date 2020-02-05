@@ -23,7 +23,7 @@ public class Client {
     private Scanner scanner = new Scanner(System.in);
 
     public void start() {
-        //Con Este metodo enviamos al servidor un mensaje indentificandonos y recibimos un mensaje suyo.
+        //Con Este método enviamos al servidor un mensaje identificándolos y recibimos un mensaje suyo.
         wellcome();
 
         /*
@@ -32,7 +32,7 @@ public class Client {
          */
         ServerStatus serverStatus = new ServerStatus(client);
         new Thread(serverStatus).start();
-        //Estara constantemente leeyendo lo que el usuario meta por teclado
+        //Estará constantemente leyendo lo que el usuario meta por teclado
         mensages();
     }
 
