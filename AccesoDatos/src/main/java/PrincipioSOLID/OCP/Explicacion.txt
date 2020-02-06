@@ -1,0 +1,9 @@
+O: Open/closed principle o Principio de abierto/cerrado
+
+
+Establece que las entidades software (clases, módulos y funciones) deberían estar abiertos para su extensión, pero
+cerrados para su modificación.Esto no cumpliría el principio abierto/cerrado, ya que si decidimos añadir un nuevo coche
+de otra marca. También tendríamos que modificar el método que hemos creado anteriormente:
+
+Cada coche extiende la clase abstracta Coche e implementa el método abstracto. sí, cada coche tiene su propia
+implementación del método, por lo que ahora iterar sobre él es simplemente llamar a ese método.

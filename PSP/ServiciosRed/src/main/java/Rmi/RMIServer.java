@@ -40,7 +40,7 @@ public class RMIServer implements RMICalculator {
             // Bind the remote object's rm in the registry
             Registry registry = LocateRegistry.getRegistry();
             registry.bind("calculator", rmiHelloWorld);
-
+            System.out.println("Registro creado correctamente");
         } catch (Exception e) {
             System.err.println("RMIServer exception: " + e.toString());
             e.printStackTrace();

@@ -1,0 +1,12 @@
+L: Liskov substitution principle o Principio de sustitución de Liskov
+
+
+Declara que una subclase debe ser sustituible por su superclase, y si al hacer esto, el programa falla, estaremos
+violando este principio.Cumpliendo con este principio se confirmará que nuestro programa tiene una jerarquía de clases
+fácil de entender y un código reutilizable.
+
+Para que este método cumpla con el principio, seguiremos estos principios:
+    *Si la superclase (Coche) tiene un método que acepta un parámetro del tipo de la superclase (Coche), entonces su
+    subclase (Renault/Audi) debería aceptar como argumento un tipo de la superclase (Coche) o un tipo de la subclase (Renault/Audi).
+   *Si la superclase devuelve un tipo de ella misma (Coche), entonces su subclase (Renault/Audi) debería devolver un tipo de
+    la superclase (Coche) o un tipo de la subclase (Renault/Audi).
